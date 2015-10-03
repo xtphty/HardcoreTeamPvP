@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.threads.ThreadUpdateSQL;
 
 /**
@@ -32,7 +33,7 @@ public class MySQLCore implements DBCore {
         this.host = host;
         this.username = username;
         this.password = password;
-        this.log = SimpleClans.getLog();
+        this.log = HardcoreTeamPvP.getLog();
         initialize();
     }
 
@@ -130,7 +131,7 @@ public class MySQLCore implements DBCore {
     @Override
     public void insert(String query)
     {
-        if (SimpleClans.getInstance().getSettingsManager().getUseThreads())
+        if (HardcoreTeamPvP.getInstance().getSettingsManager().getUseThreads())
         {
             Thread th = new Thread(new ThreadUpdateSQL(getConnection(), query, "INSERT"));
             th.start();
@@ -160,7 +161,7 @@ public class MySQLCore implements DBCore {
     @Override
     public void update(String query)
     {
-        if (SimpleClans.getInstance().getSettingsManager().getUseThreads())
+        if (HardcoreTeamPvP.getInstance().getSettingsManager().getUseThreads())
         {
             Thread th = new Thread(new ThreadUpdateSQL(getConnection(), query, "UPDATE"));
             th.start();
@@ -190,7 +191,7 @@ public class MySQLCore implements DBCore {
     @Override
     public void delete(String query)
     {
-        if (SimpleClans.getInstance().getSettingsManager().getUseThreads())
+        if (HardcoreTeamPvP.getInstance().getSettingsManager().getUseThreads())
         {
             Thread th = new Thread(new ThreadUpdateSQL(getConnection(), query, "DELETE"));
             th.start();

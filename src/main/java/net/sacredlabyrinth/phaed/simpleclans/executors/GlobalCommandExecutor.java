@@ -2,7 +2,7 @@ package net.sacredlabyrinth.phaed.simpleclans.executors;
 
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,11 +11,11 @@ import org.bukkit.entity.Player;
 
 public class GlobalCommandExecutor implements CommandExecutor
 {
-    SimpleClans plugin;
+    HardcoreTeamPvP plugin;
 
     public GlobalCommandExecutor()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class GlobalCommandExecutor implements CommandExecutor
         }
 
         ClanPlayer cp;
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             cp = plugin.getClanManager().getClanPlayer(player.getUniqueId());
         }

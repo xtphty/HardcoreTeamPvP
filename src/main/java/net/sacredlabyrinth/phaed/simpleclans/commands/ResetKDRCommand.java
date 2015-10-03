@@ -19,9 +19,9 @@ public class ResetKDRCommand {
      * @param arg
      */
     public void execute(Player player, String[] arg) {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
         if (plugin.getPermissionsManager().has(player, "simpleclans.admin.resetkdr")) {
-            for (ClanPlayer cp : SimpleClans.getInstance().getClanManager().getAllClanPlayers()) {
+            for (ClanPlayer cp : HardcoreTeamPvP.getInstance().getClanManager().getAllClanPlayers()) {
                 cp.setCivilianKills(0);
                 cp.setNeutralKills(0);
                 cp.setRivalKills(0);

@@ -1,7 +1,7 @@
 package net.sacredlabyrinth.phaed.simpleclans.commands;
 
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -26,7 +26,7 @@ public class BanCommand
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (plugin.getPermissionsManager().has(player, "simpleclans.mod.ban"))
         {
@@ -34,12 +34,12 @@ public class BanCommand
             {
                 String banned = arg[0];
                 
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     UUID PlayerUniqueId = UUIDMigration.getForcedPlayerUUID(banned);
                     if (!plugin.getSettingsManager().isBanned(PlayerUniqueId))
                     {
-                        Player pl = SimpleClans.getInstance().getServer().getPlayer(PlayerUniqueId);
+                        Player pl = HardcoreTeamPvP.getInstance().getServer().getPlayer(PlayerUniqueId);
 
                         if (pl != null)
                         {
@@ -57,7 +57,7 @@ public class BanCommand
                 {
                     if (!plugin.getSettingsManager().isBanned(banned))
                     {
-                        Player pl = SimpleClans.getInstance().getServer().getPlayerExact(banned);
+                        Player pl = HardcoreTeamPvP.getInstance().getServer().getPlayerExact(banned);
 
                         if (pl != null)
                         {

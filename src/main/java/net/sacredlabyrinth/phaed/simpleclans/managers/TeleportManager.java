@@ -1,8 +1,8 @@
 package net.sacredlabyrinth.phaed.simpleclans.managers;
 
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
 import net.sacredlabyrinth.phaed.simpleclans.TeleportState;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public final class TeleportManager
 {
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private HashMap<String, TeleportState> waitingPlayers = new HashMap<String, TeleportState>();
 
     /**
@@ -26,7 +26,7 @@ public final class TeleportManager
      */
     public TeleportManager()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
         startCounter();
     }
 
@@ -39,9 +39,9 @@ public final class TeleportManager
      */
     public void addPlayer(Player player, Location dest, String clanName)
     {
-        int secs = SimpleClans.getInstance().getSettingsManager().getWaitSecs();
+        int secs = HardcoreTeamPvP.getInstance().getSettingsManager().getWaitSecs();
 
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             waitingPlayers.put(player.getUniqueId().toString(), new TeleportState(player, dest, clanName));
         } else 
@@ -150,7 +150,7 @@ public final class TeleportManager
                                     dropItems(player);
                                 }
 
-                                SimpleClans.debug("teleporting");
+                                HardcoreTeamPvP.debug("teleporting");
 
                                 player.teleport(new Location(loc.getWorld(), loc.getBlockX() + .5, loc.getBlockY(), loc.getBlockZ() + .5));
 

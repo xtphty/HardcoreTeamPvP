@@ -2,9 +2,8 @@ package net.sacredlabyrinth.phaed.simpleclans.managers;
 
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
-import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -19,7 +18,7 @@ import static org.getspout.spoutapi.SpoutManager.*;
  */
 public final class SpoutPluginManager
 {
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private boolean hasSpout;
 
     /**
@@ -27,7 +26,7 @@ public final class SpoutPluginManager
      */
     public SpoutPluginManager()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
         hasSpout = checkSpout();
     }
 
@@ -75,7 +74,7 @@ public final class SpoutPluginManager
     {
         if (isHasSpout())
         {
-            Player player = SimpleClans.getInstance().getServer().getPlayer(playerUniqueId);
+            Player player = HardcoreTeamPvP.getInstance().getServer().getPlayer(playerUniqueId);
 
             if (player != null)
             {
@@ -174,7 +173,7 @@ public final class SpoutPluginManager
 
         if (test != null)
         {
-            SimpleClans.log(plugin.getLang("spout.features.enabled"));
+            HardcoreTeamPvP.log(plugin.getLang("spout.features.enabled"));
             return true;
         }
         return false;

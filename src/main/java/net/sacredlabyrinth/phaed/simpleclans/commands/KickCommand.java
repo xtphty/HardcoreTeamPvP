@@ -1,10 +1,7 @@
 package net.sacredlabyrinth.phaed.simpleclans.commands;
 
-import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
-import net.sacredlabyrinth.phaed.simpleclans.Clan;
-import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
-import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.*;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -28,7 +25,7 @@ public class KickCommand
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (plugin.getPermissionsManager().has(player, "simpleclans.leader.kick"))
         {
@@ -53,7 +50,7 @@ public class KickCommand
                                     if (!clan.isLeader(kicked))
                                     {
                                         clan.addBb(player.getName(),  ChatColor.AQUA + MessageFormat.format(plugin.getLang("has.been.kicked.by"), Helper.capitalize(kicked), player.getName()));
-                                        if (SimpleClans.getInstance().hasUUID())
+                                        if (HardcoreTeamPvP.getInstance().hasUUID())
                                         {
                                             clan.removePlayerFromClan(UUIDMigration.getForcedPlayerUUID(kicked));
                                         } else 

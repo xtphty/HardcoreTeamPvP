@@ -1,7 +1,7 @@
 package net.sacredlabyrinth.phaed.simpleclans.managers;
 
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
 import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -23,7 +23,7 @@ public final class SettingsManager
     private boolean dropOnHome;
     private boolean keepOnHome;
     private boolean debugging;
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private boolean mChatIntegration;
     private boolean pvpOnlywhileInWar;
     private boolean useColorCodeFromPrefix;
@@ -144,7 +144,7 @@ public final class SettingsManager
      */
     public SettingsManager()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
         config = plugin.getConfig();
         main = new File(plugin.getDataFolder() + File.separator + "config.yml");
         load();
@@ -422,7 +422,7 @@ public final class SettingsManager
     @Deprecated
     public boolean isBanned(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             playerName = UUIDMigration.getForcedPlayerUUID(playerName).toString();
         }
@@ -445,7 +445,7 @@ public final class SettingsManager
     @Deprecated
     public void addBanned(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             playerName = UUIDMigration.getForcedPlayerUUID(playerName).toString();
         }
@@ -465,7 +465,7 @@ public final class SettingsManager
     @Deprecated
     public void removeBanned(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             playerName = UUIDMigration.getForcedPlayerUUID(playerName).toString();
         }
@@ -529,7 +529,7 @@ public final class SettingsManager
     /**
      * @return the plugin
      */
-    public SimpleClans getPlugin()
+    public HardcoreTeamPvP getPlugin()
     {
         return plugin;
     }

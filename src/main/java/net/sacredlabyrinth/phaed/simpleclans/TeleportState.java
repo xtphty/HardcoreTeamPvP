@@ -21,7 +21,7 @@ public class TeleportState
         this.playerLocation = player.getLocation();
         this.playerName = player.getName();
         this.clanName = clanName;
-        this.counter = SimpleClans.getInstance().getSettingsManager().getWaitSecs();
+        this.counter = HardcoreTeamPvP.getInstance().getSettingsManager().getWaitSecs();
         this.playerUniqueId = player.getUniqueId();
     }
 
@@ -54,12 +54,12 @@ public class TeleportState
      */
     public Player getPlayer()
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            return SimpleClans.getInstance().getServer().getPlayer(this.playerUniqueId);
+            return HardcoreTeamPvP.getInstance().getServer().getPlayer(this.playerUniqueId);
         } else
         {
-            return SimpleClans.getInstance().getServer().getPlayer(this.playerName);
+            return HardcoreTeamPvP.getInstance().getServer().getPlayer(this.playerName);
         }
     }
 

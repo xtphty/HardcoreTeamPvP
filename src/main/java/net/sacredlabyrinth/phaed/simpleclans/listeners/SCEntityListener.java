@@ -2,7 +2,7 @@ package net.sacredlabyrinth.phaed.simpleclans.listeners;
 
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -22,14 +22,14 @@ import java.text.MessageFormat;
 public class SCEntityListener implements Listener
 {
 
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
 
     /**
      *
      */
     public SCEntityListener()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     /**
@@ -75,7 +75,7 @@ public class SCEntityListener implements Listener
             {
                 ClanPlayer acp;
                 ClanPlayer vcp;
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     acp = plugin.getClanManager().getCreateClanPlayer(attacker.getUniqueId());
                     vcp = plugin.getClanManager().getCreateClanPlayer(victim.getUniqueId());

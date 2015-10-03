@@ -1,9 +1,8 @@
 package net.sacredlabyrinth.phaed.simpleclans.commands;
 
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
-import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -26,7 +25,7 @@ public class UnbanCommand
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (plugin.getPermissionsManager().has(player, "simpleclans.mod.ban"))
         {

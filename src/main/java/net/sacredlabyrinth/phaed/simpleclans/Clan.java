@@ -68,7 +68,7 @@ public class Clan implements Serializable, Comparable<Clan>
         this.verified = verified;
         this.capeUrl = "";
 
-        if (SimpleClans.getInstance().getSettingsManager().isClanFFOnByDefault())
+        if (HardcoreTeamPvP.getInstance().getSettingsManager().isClanFFOnByDefault())
         {
             friendlyFire = true;
         }
@@ -112,23 +112,23 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void deposit(double amount, Player player)
     {
-        if (SimpleClans.getInstance().getPermissionsManager().playerHasMoney(player, amount))
+        if (HardcoreTeamPvP.getInstance().getPermissionsManager().playerHasMoney(player, amount))
         {
-            if (SimpleClans.getInstance().getPermissionsManager().playerChargeMoney(player, amount))
+            if (HardcoreTeamPvP.getInstance().getPermissionsManager().playerChargeMoney(player, amount))
             {
-                player.sendMessage(ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("player.clan.deposit"), amount));
-                addBb(player.getName(), ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("bb.clan.deposit"), amount));
+                player.sendMessage(ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("player.clan.deposit"), amount));
+                addBb(player.getName(), ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("bb.clan.deposit"), amount));
                 setBalance(getBalance() + amount);
-                SimpleClans.getInstance().getStorageManager().updateClan(this);
+                HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
             }
             else
             {
-                player.sendMessage(ChatColor.AQUA + SimpleClans.getInstance().getLang("not.sufficient.money"));
+                player.sendMessage(ChatColor.AQUA + HardcoreTeamPvP.getInstance().getLang("not.sufficient.money"));
             }
         }
         else
         {
-            player.sendMessage(ChatColor.AQUA + SimpleClans.getInstance().getLang("not.sufficient.money"));
+            player.sendMessage(ChatColor.AQUA + HardcoreTeamPvP.getInstance().getLang("not.sufficient.money"));
         }
     }
 
@@ -142,17 +142,17 @@ public class Clan implements Serializable, Comparable<Clan>
     {
         if (getBalance() >= amount)
         {
-            if (SimpleClans.getInstance().getPermissionsManager().playerGrantMoney(player, amount))
+            if (HardcoreTeamPvP.getInstance().getPermissionsManager().playerGrantMoney(player, amount))
             {
-                player.sendMessage(ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("player.clan.withdraw"), amount));
-                addBb(player.getName(), ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("bb.clan.withdraw"), amount));
+                player.sendMessage(ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("player.clan.withdraw"), amount));
+                addBb(player.getName(), ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("bb.clan.withdraw"), amount));
                 setBalance(getBalance() - amount);
-                SimpleClans.getInstance().getStorageManager().updateClan(this);
+                HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
             }
         }
         else
         {
-            player.sendMessage(ChatColor.AQUA + SimpleClans.getInstance().getLang("clan.bank.not.enough.money"));
+            player.sendMessage(ChatColor.AQUA + HardcoreTeamPvP.getInstance().getLang("clan.bank.not.enough.money"));
         }
     }
 
@@ -283,7 +283,7 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public boolean isMember(Player player)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return this.members.contains(player.getUniqueId().toString());
         }
@@ -302,7 +302,7 @@ public class Clan implements Serializable, Comparable<Clan>
     @Deprecated
     public boolean isMember(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             UUID PlayerUniqueId = UUIDMigration.getForcedPlayerUUID(playerName);
             if (PlayerUniqueId != null)
@@ -425,13 +425,13 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void addBb(String msg)
     {
-        while (bb.size() > SimpleClans.getInstance().getSettingsManager().getBbSize())
+        while (bb.size() > HardcoreTeamPvP.getInstance().getSettingsManager().getBbSize())
         {
             bb.remove(0);
         }
 
         bb.add(msg);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
     }
 
     /**
@@ -440,7 +440,7 @@ public class Clan implements Serializable, Comparable<Clan>
     public void clearBb()
     {
         bb.clear();
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
     }
 
     /**
@@ -451,7 +451,7 @@ public class Clan implements Serializable, Comparable<Clan>
     public void importMember(ClanPlayer cp)
     {
         String NameOrUUID;
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             if (cp.getUniqueId() != null)
             {
@@ -480,7 +480,7 @@ public class Clan implements Serializable, Comparable<Clan>
     @Deprecated
     public void removeMember(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             UUID PlayerUniqueId = UUIDMigration.getForcedPlayerUUID(playerName);
             if (PlayerUniqueId != null)
@@ -570,7 +570,7 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public boolean isVerified()
     {
-        return !SimpleClans.getInstance().getSettingsManager().isRequireVerification() || verified;
+        return !HardcoreTeamPvP.getInstance().getSettingsManager().isRequireVerification() || verified;
 
     }
 
@@ -677,7 +677,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
         for (String allyTag : getAllies())
         {
-            Clan ally = SimpleClans.getInstance().getClanManager().getClan(allyTag);
+            Clan ally = HardcoreTeamPvP.getInstance().getClanManager().getClan(allyTag);
 
             if (ally != null)
             {
@@ -708,7 +708,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
         for (String rivalTag : getRivals())
         {
-            Clan rival = SimpleClans.getInstance().getClanManager().getClan(rivalTag);
+            Clan rival = HardcoreTeamPvP.getInstance().getClanManager().getClan(rivalTag);
 
             if (rival != null)
             {
@@ -748,13 +748,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -778,7 +778,7 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public boolean isLeader(Player player)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return isLeader(player.getUniqueId());
         }
@@ -799,7 +799,7 @@ public class Clan implements Serializable, Comparable<Clan>
     {
         if (isMember(playerName))
         {
-            ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayerName(playerName.toLowerCase());
+            ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayerName(playerName.toLowerCase());
 
             if (cp != null && cp.isLeader())
             {
@@ -820,7 +820,7 @@ public class Clan implements Serializable, Comparable<Clan>
     {
         if (isMember(playerUniqueId))
         {
-            ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerUniqueId);
+            ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerUniqueId);
 
             if (cp != null && cp.isLeader())
             {
@@ -843,13 +843,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -873,13 +873,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -909,13 +909,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -943,13 +943,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -979,13 +979,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1011,7 +1011,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
         for (String tag : allies)
         {
-            Clan ally = SimpleClans.getInstance().getClanManager().getClan(tag);
+            Clan ally = HardcoreTeamPvP.getInstance().getClanManager().getClan(tag);
 
             if (ally != null)
             {
@@ -1040,13 +1040,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1082,13 +1082,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1118,13 +1118,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1154,13 +1154,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1190,13 +1190,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1226,13 +1226,13 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             ClanPlayer cp;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(UUID.fromString(member));
             }
             else
             {
-                cp = SimpleClans.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
+                cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(member.toLowerCase());
             }
             if (cp == null)
             {
@@ -1254,17 +1254,17 @@ public class Clan implements Serializable, Comparable<Clan>
     {
         setCapeUrl(url);
 
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
 
         for (String member : members)
         {
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                SimpleClans.getInstance().getSpoutPluginManager().processPlayer(UUID.fromString(member));
+                HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(UUID.fromString(member));
             }
             else
             {
-                SimpleClans.getInstance().getSpoutPluginManager().processPlayer(member);
+                HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(member);
             }
         }
     }
@@ -1277,8 +1277,8 @@ public class Clan implements Serializable, Comparable<Clan>
     public boolean reachedRivalLimit()
     {
         int rivalCount = rivals.size();
-        int clanCount = SimpleClans.getInstance().getClanManager().getRivableClanCount() - 1;
-        int rivalPercent = SimpleClans.getInstance().getSettingsManager().getRivalLimitPercent();
+        int clanCount = HardcoreTeamPvP.getInstance().getClanManager().getRivableClanCount() - 1;
+        int rivalPercent = HardcoreTeamPvP.getInstance().getSettingsManager().getRivalLimitPercent();
 
         double limit = ((double) clanCount) * (((double) rivalPercent) / ((double) 100));
 
@@ -1295,39 +1295,39 @@ public class Clan implements Serializable, Comparable<Clan>
         cp.removePastClan(getColorTag());
         cp.setClan(this);
         cp.setLeader(false);
-        cp.setTrusted(SimpleClans.getInstance().getSettingsManager().isClanTrustByDefault());
+        cp.setTrusted(HardcoreTeamPvP.getInstance().getSettingsManager().isClanTrustByDefault());
 
         importMember(cp);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        if (SimpleClans.getInstance().hasUUID())
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
         }
         else
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
         }
 
         // add clan permission
-        SimpleClans.getInstance().getPermissionsManager().addClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addClanPermissions(cp);
 
         Player player;
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            player = SimpleClans.getInstance().getServer().getPlayer(cp.getUniqueId());
+            player = HardcoreTeamPvP.getInstance().getServer().getPlayer(cp.getUniqueId());
         }
         else
         {
-            player = SimpleClans.getInstance().getServer().getPlayerExact(cp.getName());
+            player = HardcoreTeamPvP.getInstance().getServer().getPlayerExact(cp.getName());
         }
 
         if (player != null)
         {
-            SimpleClans.getInstance().getClanManager().updateDisplayName(player);
+            HardcoreTeamPvP.getInstance().getClanManager().updateDisplayName(player);
         }
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerJoinedClanEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerJoinedClanEvent(this, cp));
     }
 
     /**
@@ -1338,13 +1338,13 @@ public class Clan implements Serializable, Comparable<Clan>
     @Deprecated
     public void removePlayerFromClan(String playerName)
     {
-        ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerName);
+        ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerName);
 
         // remove clan group-permission
-        SimpleClans.getInstance().getPermissionsManager().removeClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPermissions(cp);
 
         // remove permissions
-        SimpleClans.getInstance().getPermissionsManager().removeClanPlayerPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPlayerPermissions(cp);
 
         cp.setClan(null);
         cp.addPastClan(getColorTag() + (cp.isLeader() ? ChatColor.DARK_RED + "*" : ""));
@@ -1353,24 +1353,24 @@ public class Clan implements Serializable, Comparable<Clan>
         cp.setJoinDate(0);
         removeMember(playerName);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        if (SimpleClans.getInstance().hasUUID())
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
         }
         else
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
         }
 
         Player matched = cp.toPlayer();
 
         if (matched != null)
         {
-            SimpleClans.getInstance().getClanManager().updateDisplayName(matched);
+            HardcoreTeamPvP.getInstance().getClanManager().updateDisplayName(matched);
         }
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerKickedClanEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerKickedClanEvent(this, cp));
     }
 
     /**
@@ -1380,13 +1380,13 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void removePlayerFromClan(UUID playerUniqueId)
     {
-        ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerUniqueId);
+        ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerUniqueId);
 
         // remove clan group-permission
-        SimpleClans.getInstance().getPermissionsManager().removeClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPermissions(cp);
 
         // remove permissions
-        SimpleClans.getInstance().getPermissionsManager().removeClanPlayerPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPlayerPermissions(cp);
 
         cp.setClan(null);
         cp.addPastClan(getColorTag() + (cp.isLeader() ? ChatColor.DARK_RED + "*" : ""));
@@ -1395,17 +1395,17 @@ public class Clan implements Serializable, Comparable<Clan>
         cp.setJoinDate(0);
         removeMember(playerUniqueId);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
 
-        Player matched = SimpleClans.getInstance().getServer().getPlayer(playerUniqueId);
+        Player matched = HardcoreTeamPvP.getInstance().getServer().getPlayer(playerUniqueId);
 
         if (matched != null)
         {
-            SimpleClans.getInstance().getClanManager().updateDisplayName(matched);
+            HardcoreTeamPvP.getInstance().getClanManager().updateDisplayName(matched);
         }
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerKickedClanEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerKickedClanEvent(this, cp));
     }
 
 
@@ -1417,25 +1417,25 @@ public class Clan implements Serializable, Comparable<Clan>
     @Deprecated
     public void promote(String playerName)
     {
-        ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerName);
+        ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerName);
 
         cp.setLeader(true);
         cp.setTrusted(true);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        if (SimpleClans.getInstance().hasUUID())
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
         }
         else
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
         }
 
         // add clan permission
-        SimpleClans.getInstance().getPermissionsManager().addClanPermissions(cp);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerPromoteEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerPromoteEvent(this, cp));
     }
 
     /**
@@ -1445,18 +1445,18 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void promote(UUID playerUniqueId)
     {
-        ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerUniqueId);
+        ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerUniqueId);
 
         cp.setLeader(true);
         cp.setTrusted(true);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
 
         // add clan permission
-        SimpleClans.getInstance().getPermissionsManager().addClanPermissions(cp);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerPromoteEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerPromoteEvent(this, cp));
     }
 
     /**
@@ -1467,24 +1467,24 @@ public class Clan implements Serializable, Comparable<Clan>
     @Deprecated
     public void demote(String playerName)
     {
-        ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerName);
+        ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerName);
 
         cp.setLeader(false);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        if (SimpleClans.getInstance().hasUUID())
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
         }
         else
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
         }
 
         // add clan permission
-        SimpleClans.getInstance().getPermissionsManager().addClanPermissions(cp);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerDemoteEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerDemoteEvent(this, cp));
     }
 
     /**
@@ -1494,17 +1494,17 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void demote(UUID playerUniqueId)
     {
-        ClanPlayer cp = SimpleClans.getInstance().getClanManager().getClanPlayer(playerUniqueId);
+        ClanPlayer cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(playerUniqueId);
 
         cp.setLeader(false);
 
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
 
         // add clan permission
-        SimpleClans.getInstance().getPermissionsManager().addClanPermissions(cp);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new PlayerDemoteEvent(this, cp));
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new PlayerDemoteEvent(this, cp));
     }
 
     /**
@@ -1520,9 +1520,9 @@ public class Clan implements Serializable, Comparable<Clan>
         ally.removeRival(getTag());
         ally.addAlly(getTag());
 
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getStorageManager().updateClan(ally);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new AllyClanAddEvent(this, ally));
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(ally);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new AllyClanAddEvent(this, ally));
     }
 
     /**
@@ -1535,9 +1535,9 @@ public class Clan implements Serializable, Comparable<Clan>
         removeAlly(ally.getTag());
         ally.removeAlly(getTag());
 
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getStorageManager().updateClan(ally);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new AllyClanRemoveEvent(this, ally));
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(ally);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new AllyClanRemoveEvent(this, ally));
     }
 
     /**
@@ -1553,9 +1553,9 @@ public class Clan implements Serializable, Comparable<Clan>
         rival.removeAlly(getTag());
         rival.addRival(getTag());
 
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getStorageManager().updateClan(rival);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new RivalClanAddEvent(this, rival));
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(rival);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new RivalClanAddEvent(this, rival));
     }
 
     /**
@@ -1568,9 +1568,9 @@ public class Clan implements Serializable, Comparable<Clan>
         removeRival(rival.getTag());
         rival.removeRival(getTag());
 
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
-        SimpleClans.getInstance().getStorageManager().updateClan(rival);
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new RivalClanRemoveEvent(this, rival));
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(rival);
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new RivalClanRemoveEvent(this, rival));
     }
 
     /**
@@ -1579,7 +1579,7 @@ public class Clan implements Serializable, Comparable<Clan>
     public void verifyClan()
     {
         setVerified(true);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
     }
 
     /**
@@ -1591,7 +1591,7 @@ public class Clan implements Serializable, Comparable<Clan>
     {
         for (String member : members)
         {
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
                 if (Helper.isOnline(UUID.fromString(member)))
                 {
@@ -1621,7 +1621,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
         for (ClanPlayer leader : leaders)
         {
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
                 if (!Helper.isOnline(leader.getUniqueId()))
                 {
@@ -1701,7 +1701,7 @@ public class Clan implements Serializable, Comparable<Clan>
     public void changeClanTag(String tag)
     {
         setColorTag(tag);
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
     }
 
     /**
@@ -1712,7 +1712,7 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void clanAnnounce(String playerName, String msg)
     {
-        String message = SimpleClans.getInstance().getSettingsManager().getClanChatAnnouncementColor() + msg;
+        String message = HardcoreTeamPvP.getInstance().getSettingsManager().getClanChatAnnouncementColor() + msg;
 
         for (ClanPlayer cp : getMembers())
         {
@@ -1724,7 +1724,7 @@ public class Clan implements Serializable, Comparable<Clan>
             }
         }
 
-        SimpleClans.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[" + SimpleClans.getInstance().getLang("clan.announce") + ChatColor.AQUA + "] " + ChatColor.AQUA + "[" + Helper.getColorName(playerName) + ChatColor.WHITE + "] " + message);
+        HardcoreTeamPvP.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[" + HardcoreTeamPvP.getInstance().getLang("clan.announce") + ChatColor.AQUA + "] " + ChatColor.AQUA + "[" + Helper.getColorName(playerName) + ChatColor.WHITE + "] " + message);
     }
 
     /**
@@ -1734,7 +1734,7 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void leaderAnnounce(String msg)
     {
-        String message = SimpleClans.getInstance().getSettingsManager().getClanChatAnnouncementColor() + msg;
+        String message = HardcoreTeamPvP.getInstance().getSettingsManager().getClanChatAnnouncementColor() + msg;
 
         List<ClanPlayer> leaders = getLeaders();
 
@@ -1747,7 +1747,7 @@ public class Clan implements Serializable, Comparable<Clan>
                 ChatBlock.sendMessage(pl, message);
             }
         }
-        SimpleClans.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[" + SimpleClans.getInstance().getLang("leader.announce") + ChatColor.AQUA + "] " + ChatColor.WHITE + message);
+        HardcoreTeamPvP.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[" + HardcoreTeamPvP.getInstance().getLang("leader.announce") + ChatColor.AQUA + "] " + ChatColor.WHITE + message);
     }
 
     /**
@@ -1763,20 +1763,20 @@ public class Clan implements Serializable, Comparable<Clan>
         for (String member : members)
         {
             Player pl;
-            if (SimpleClans.getInstance().hasUUID())
+            if (HardcoreTeamPvP.getInstance().hasUUID())
             {
-                pl = SimpleClans.getInstance().getServer().getPlayer(UUID.fromString(member));
+                pl = HardcoreTeamPvP.getInstance().getServer().getPlayer(UUID.fromString(member));
             }
             else
             {
-                pl = SimpleClans.getInstance().getServer().getPlayerExact(member);
+                pl = HardcoreTeamPvP.getInstance().getServer().getPlayerExact(member);
             }
             if (pl == null)
             {
                 continue;
             }
 
-            SimpleClans.getInstance().getSpoutPluginManager().playAlert(pl);
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().playAlert(pl);
         }
     }
 
@@ -1790,8 +1790,8 @@ public class Clan implements Serializable, Comparable<Clan>
     {
         if (isVerified())
         {
-            addBb(SimpleClans.getInstance().getSettingsManager().getBbColor() + msg);
-            clanAnnounce(announcerName, SimpleClans.getInstance().getSettingsManager().getBbAccentColor() + "* " + SimpleClans.getInstance().getSettingsManager().getBbColor() + Helper.parseColors(msg));
+            addBb(HardcoreTeamPvP.getInstance().getSettingsManager().getBbColor() + msg);
+            clanAnnounce(announcerName, HardcoreTeamPvP.getInstance().getSettingsManager().getBbAccentColor() + "* " + HardcoreTeamPvP.getInstance().getSettingsManager().getBbColor() + Helper.parseColors(msg));
         }
     }
 
@@ -1805,9 +1805,9 @@ public class Clan implements Serializable, Comparable<Clan>
         if (isVerified())
         {
             ChatBlock.sendBlank(player);
-            ChatBlock.saySingle(player, MessageFormat.format(SimpleClans.getInstance().getLang("bulletin.board.header"), SimpleClans.getInstance().getSettingsManager().getBbAccentColor(), SimpleClans.getInstance().getSettingsManager().getPageHeadingsColor(), Helper.capitalize(getName())));
+            ChatBlock.saySingle(player, MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("bulletin.board.header"), HardcoreTeamPvP.getInstance().getSettingsManager().getBbAccentColor(), HardcoreTeamPvP.getInstance().getSettingsManager().getPageHeadingsColor(), Helper.capitalize(getName())));
 
-            int maxSize = SimpleClans.getInstance().getSettingsManager().getBbSize();
+            int maxSize = HardcoreTeamPvP.getInstance().getSettingsManager().getBbSize();
 
             while (bb.size() > maxSize)
             {
@@ -1816,7 +1816,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
             for (String msg : bb)
             {
-                ChatBlock.sendMessage(player, SimpleClans.getInstance().getSettingsManager().getBbAccentColor() + "* " + SimpleClans.getInstance().getSettingsManager().getBbColor() + Helper.parseColors(msg));
+                ChatBlock.sendMessage(player, HardcoreTeamPvP.getInstance().getSettingsManager().getBbAccentColor() + "* " + HardcoreTeamPvP.getInstance().getSettingsManager().getBbColor() + Helper.parseColors(msg));
             }
             ChatBlock.sendBlank(player);
         }
@@ -1827,15 +1827,15 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public void disband()
     {
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new DisbandClanEvent(this));
-        Collection<ClanPlayer> clanPlayers = SimpleClans.getInstance().getClanManager().getAllClanPlayers();
-        List<Clan> clans = SimpleClans.getInstance().getClanManager().getClans();
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new DisbandClanEvent(this));
+        Collection<ClanPlayer> clanPlayers = HardcoreTeamPvP.getInstance().getClanManager().getAllClanPlayers();
+        List<Clan> clans = HardcoreTeamPvP.getInstance().getClanManager().getClans();
 
         for (ClanPlayer cp : clanPlayers)
         {
             if (cp.getTag().equals(getTag()))
             {
-                SimpleClans.getInstance().getPermissionsManager().removeClanPermissions(this);
+                HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPermissions(this);
                 cp.setClan(null);
 
                 if (isVerified())
@@ -1845,14 +1845,14 @@ public class Clan implements Serializable, Comparable<Clan>
 
                 cp.setLeader(false);
 
-                SimpleClans.getInstance().getStorageManager().updateClanPlayer(cp);
-                if (SimpleClans.getInstance().hasUUID())
+                HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(cp);
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
-                    SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+                    HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
                 }
                 else
                 {
-                    SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+                    HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
                 }
             }
         }
@@ -1861,34 +1861,34 @@ public class Clan implements Serializable, Comparable<Clan>
 
         for (Clan c : clans)
         {
-            String disbanded = SimpleClans.getInstance().getLang("clan.disbanded");
+            String disbanded = HardcoreTeamPvP.getInstance().getLang("clan.disbanded");
 
             if (c.removeWarringClan(this))
             {
-                c.addBb(disbanded, ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("you.are.no.longer.at.war"), Helper.capitalize(c.getName()), getColorTag()));
+                c.addBb(disbanded, ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("you.are.no.longer.at.war"), Helper.capitalize(c.getName()), getColorTag()));
             }
 
             if (c.removeRival(getTag()))
             {
-                c.addBb(disbanded, ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("has.been.disbanded.rivalry.ended"), Helper.capitalize(getName())));
+                c.addBb(disbanded, ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("has.been.disbanded.rivalry.ended"), Helper.capitalize(getName())));
             }
 
             if (c.removeAlly(getTag()))
             {
-                c.addBb(disbanded, ChatColor.AQUA + MessageFormat.format(SimpleClans.getInstance().getLang("has.been.disbanded.alliance.ended"), Helper.capitalize(getName())));
+                c.addBb(disbanded, ChatColor.AQUA + MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("has.been.disbanded.alliance.ended"), Helper.capitalize(getName())));
             }
         }
 
         final Clan thisOne = this;
 
-        SimpleClans.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(SimpleClans.getInstance(), new Runnable()
+        HardcoreTeamPvP.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(HardcoreTeamPvP.getInstance(), new Runnable()
         {
 
             @Override
             public void run()
             {
-                SimpleClans.getInstance().getClanManager().removeClan(thisOne.getTag());
-                SimpleClans.getInstance().getStorageManager().deleteClan(thisOne);
+                HardcoreTeamPvP.getInstance().getClanManager().removeClan(thisOne.getTag());
+                HardcoreTeamPvP.getInstance().getStorageManager().deleteClan(thisOne);
             }
         }, 1);
     }
@@ -1900,7 +1900,7 @@ public class Clan implements Serializable, Comparable<Clan>
      */
     public boolean isUnrivable()
     {
-        return SimpleClans.getInstance().getSettingsManager().isUnrivable(getTag());
+        return HardcoreTeamPvP.getInstance().getSettingsManager().isUnrivable(getTag());
     }
 
     /**
@@ -1936,7 +1936,7 @@ public class Clan implements Serializable, Comparable<Clan>
         {
             warringClans.put(clan.getTag(), clan);
         }
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
     }
 
     /**
@@ -1951,7 +1951,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
         if (warring != null)
         {
-            SimpleClans.getInstance().getStorageManager().updateClan(this);
+            HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
             return true;
         }
 
@@ -2018,7 +2018,7 @@ public class Clan implements Serializable, Comparable<Clan>
                             {
                                 for (Object tag : clans)
                                 {
-                                    SimpleClans.debug("warring added: " + tag.toString());
+                                    HardcoreTeamPvP.debug("warring added: " + tag.toString());
                                     warringClans.put(tag.toString(), null);
                                 }
                             }
@@ -2064,7 +2064,7 @@ public class Clan implements Serializable, Comparable<Clan>
         {
             String clanName = (String) iter.next();
 
-            Clan clan = SimpleClans.getInstance().getClanManager().getClan(clanName);
+            Clan clan = HardcoreTeamPvP.getInstance().getClanManager().getClan(clanName);
 
             if (clan == null)
             {
@@ -2072,7 +2072,7 @@ public class Clan implements Serializable, Comparable<Clan>
             }
             else
             {
-                SimpleClans.debug("validated: " + clanName);
+                HardcoreTeamPvP.debug("validated: " + clanName);
                 warringClans.put(clanName, clan);
             }
         }
@@ -2096,12 +2096,12 @@ public class Clan implements Serializable, Comparable<Clan>
             homeZ = home.getBlockZ();
             homeWorld = home.getWorld().getName();
         }
-        SimpleClans.getInstance().getStorageManager().updateClan(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClan(this);
     }
 
     public Location getHomeLocation()
     {
-        World world = SimpleClans.getInstance().getServer().getWorld(homeWorld);
+        World world = HardcoreTeamPvP.getInstance().getServer().getWorld(homeWorld);
 
         if (world != null)
         {
@@ -2121,7 +2121,7 @@ public class Clan implements Serializable, Comparable<Clan>
 
     public String getTagLabel(boolean isLeader)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (isLeader)
         {

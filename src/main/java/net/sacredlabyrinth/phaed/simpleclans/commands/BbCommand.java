@@ -19,7 +19,7 @@ public class BbCommand {
      * @param arg
      */
     public void execute(Player player, String[] arg) {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         ClanPlayer cp = plugin.getClanManager().getClanPlayer(player);
 

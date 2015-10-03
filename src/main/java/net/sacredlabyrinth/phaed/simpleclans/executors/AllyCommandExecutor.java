@@ -2,8 +2,8 @@ package net.sacredlabyrinth.phaed.simpleclans.executors;
 
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,11 +14,11 @@ import java.util.Set;
 
 public class AllyCommandExecutor implements CommandExecutor
 {
-    SimpleClans plugin;
+    HardcoreTeamPvP plugin;
 
     public AllyCommandExecutor()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class AllyCommandExecutor implements CommandExecutor
         {
             String code = "" + ChatColor.AQUA + ChatColor.WHITE + ChatColor.AQUA + ChatColor.BLACK;
             String message = code + plugin.getSettingsManager().getAllyChatBracketColor() + plugin.getSettingsManager().getAllyChatTagBracketLeft() + plugin.getSettingsManager().getAllyChatTagColor() + plugin.getSettingsManager().getCommandAlly() + plugin.getSettingsManager().getAllyChatBracketColor() + plugin.getSettingsManager().getAllyChatTagBracketRight() + " " + plugin.getSettingsManager().getAllyChatNameColor() + plugin.getSettingsManager().getAllyChatPlayerBracketLeft() + player.getName() + plugin.getSettingsManager().getAllyChatPlayerBracketRight() + " " + plugin.getSettingsManager().getAllyChatMessageColor() + Helper.toMessage(strings);
-            SimpleClans.log(message);
+            HardcoreTeamPvP.log(message);
 
             Player self = cp.toPlayer();
             ChatBlock.sendMessage(self, message);
@@ -100,7 +100,7 @@ public class AllyCommandExecutor implements CommandExecutor
                     continue;
                 }
                 Player member = ally.toPlayer();
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     if (player.getUniqueId().equals(ally.getUniqueId()))
                     {

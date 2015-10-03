@@ -15,7 +15,7 @@ import java.util.*;
  */
 public final class RequestManager
 {
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private HashMap<String, Request> requests = new HashMap<String, Request>();
 
     /**
@@ -23,7 +23,7 @@ public final class RequestManager
      */
     public RequestManager()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
         askerTask();
     }
 
@@ -386,7 +386,7 @@ public final class RequestManager
                 String demoted = req.getTarget();
                 UUID demotedUniqueId = UUIDMigration.getForcedPlayerUUID(demoted);
 
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     if (demotedUniqueId != null)
                     {
@@ -397,7 +397,7 @@ public final class RequestManager
                 if (denies.isEmpty())
                 {
                     clan.addBb(plugin.getLang("leaders"), ChatColor.AQUA + MessageFormat.format(plugin.getLang("demoted.back.to.member"), Helper.capitalize(demoted)));
-                    if (SimpleClans.getInstance().hasUUID())
+                    if (HardcoreTeamPvP.getInstance().hasUUID())
                     {
                         clan.demote(demotedUniqueId);
                     }
@@ -418,7 +418,7 @@ public final class RequestManager
                 String promoted = req.getTarget();
                 UUID promotedUniqueId = UUIDMigration.getForcedPlayerUUID(promoted);
 
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     if (promotedUniqueId == null)
                     {
@@ -428,7 +428,7 @@ public final class RequestManager
                 if (denies.isEmpty())
                 {
                     clan.addBb(plugin.getLang("leaders"), ChatColor.AQUA + MessageFormat.format(plugin.getLang("promoted.to.leader"), Helper.capitalize(promoted)));
-                    if (SimpleClans.getInstance().hasUUID())
+                    if (HardcoreTeamPvP.getInstance().hasUUID())
                     {
                         clan.promote(promotedUniqueId);
                     }
@@ -463,7 +463,7 @@ public final class RequestManager
         }
 
         requests.remove(req.getTarget());
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new RequestFinishedEvent(req));
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new RequestFinishedEvent(req));
     }
 
     /**
@@ -563,6 +563,6 @@ public final class RequestManager
             }
         }
 
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new RequestEvent(req));
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new RequestEvent(req));
     }
 }

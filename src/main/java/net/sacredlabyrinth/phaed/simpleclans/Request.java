@@ -26,7 +26,7 @@ public final class Request
      * @param clan
      * @param target
      */
-    public Request(SimpleClans plugin, ClanRequest type, List<ClanPlayer> acceptors, ClanPlayer requester, String target, Clan clan, String msg)
+    public Request(HardcoreTeamPvP plugin, ClanRequest type, List<ClanPlayer> acceptors, ClanPlayer requester, String target, Clan clan, String msg)
     {
         this.type = type;
         this.target = target;
@@ -236,6 +236,6 @@ public final class Request
 
     public boolean reachedRequestLimit()
     {
-        return askCount > SimpleClans.getInstance().getSettingsManager().getMaxAsksPerRequest();
+        return askCount > HardcoreTeamPvP.getInstance().getSettingsManager().getMaxAsksPerRequest();
     }
 }

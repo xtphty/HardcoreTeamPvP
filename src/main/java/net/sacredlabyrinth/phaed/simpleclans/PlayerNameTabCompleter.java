@@ -1,6 +1,5 @@
 package net.sacredlabyrinth.phaed.simpleclans;
 
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,11 +11,11 @@ import java.util.List;
 
 public class PlayerNameTabCompleter implements TabCompleter
 {
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
 
     public PlayerNameTabCompleter()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     @Override

@@ -24,7 +24,7 @@ public class WarCommand
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (plugin.getPermissionsManager().has(player, "simpleclans.leader.war"))
         {

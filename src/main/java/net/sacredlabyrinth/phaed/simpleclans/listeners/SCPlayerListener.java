@@ -1,8 +1,8 @@
 package net.sacredlabyrinth.phaed.simpleclans.listeners;
 
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
 import net.sacredlabyrinth.phaed.simpleclans.executors.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,14 +19,14 @@ import java.util.Iterator;
  */
 public class SCPlayerListener implements Listener
 {
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
 
     /**
      *
      */
     public SCPlayerListener()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     /**
@@ -285,19 +285,19 @@ public class SCPlayerListener implements Listener
     {
         final Player player = event.getPlayer();
 
-        if (SimpleClans.getInstance().getSettingsManager().isBlacklistedWorld(player.getLocation().getWorld().getName()))
+        if (HardcoreTeamPvP.getInstance().getSettingsManager().isBlacklistedWorld(player.getLocation().getWorld().getName()))
         {
             return;
         }
 
         ClanPlayer cp;
-        if (SimpleClans.getInstance().getSettingsManager().getUseBungeeCord())
+        if (HardcoreTeamPvP.getInstance().getSettingsManager().getUseBungeeCord())
         {
-            cp = SimpleClans.getInstance().getClanManager().getClanPlayerJoinEvent(player);
+            cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayerJoinEvent(player);
         }
         else
         {
-            cp = SimpleClans.getInstance().getClanManager().getClanPlayer(player);
+            cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(player);
         }
 
         if (cp == null)
@@ -305,17 +305,17 @@ public class SCPlayerListener implements Listener
             return;
         }
         cp.setName(player.getName());
-        SimpleClans.getInstance().getClanManager().updateLastSeen(player);
-        SimpleClans.getInstance().getClanManager().updateDisplayName(player);
-        if (SimpleClans.getInstance().hasUUID())
+        HardcoreTeamPvP.getInstance().getClanManager().updateLastSeen(player);
+        HardcoreTeamPvP.getInstance().getClanManager().updateDisplayName(player);
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
         }
         else
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
         }
-        SimpleClans.getInstance().getPermissionsManager().addPlayerPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addPlayerPermissions(cp);
 
         if (plugin.getSettingsManager().isBbShowOnLogin())
         {
@@ -325,11 +325,11 @@ public class SCPlayerListener implements Listener
             }
         }
 
-        SimpleClans.getInstance().getPermissionsManager().addClanPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().addClanPermissions(cp);
 
         if (event.getPlayer().isOp())
         {
-            for (String message : SimpleClans.getInstance().getMessages())
+            for (String message : HardcoreTeamPvP.getInstance().getMessages())
             {
                 event.getPlayer().sendMessage(ChatColor.YELLOW + message);
             }
@@ -378,7 +378,7 @@ public class SCPlayerListener implements Listener
 
         ClanPlayer cp = plugin.getClanManager().getClanPlayer(event.getPlayer());
 
-        SimpleClans.getInstance().getPermissionsManager().removeClanPlayerPermissions(cp);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPlayerPermissions(cp);
         plugin.getClanManager().updateLastSeen(event.getPlayer());
         plugin.getRequestManager().endPendingRequest(event.getPlayer().getName());
     }

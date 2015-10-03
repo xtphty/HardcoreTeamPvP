@@ -1,6 +1,5 @@
 package net.sacredlabyrinth.phaed.simpleclans;
 
-import net.sacredlabyrinth.phaed.simpleclans.storage.DBCore;
 import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -27,7 +25,7 @@ public class Helper
     {
         for (StackTraceElement el : Thread.currentThread().getStackTrace())
         {
-            SimpleClans.debug(el.toString());
+            HardcoreTeamPvP.debug(el.toString());
         }
     }
 
@@ -39,11 +37,11 @@ public class Helper
      */
     public static String getColorName(String playerName)
     {
-        List<Player> players = SimpleClans.getInstance().getServer().matchPlayer(playerName);
+        List<Player> players = HardcoreTeamPvP.getInstance().getServer().matchPlayer(playerName);
 
         if (players.size() == 1)
         {
-            return SimpleClans.getInstance().getPermissionsManager().getPrefix(players.get(0)) + players.get(0).getName() + SimpleClans.getInstance().getPermissionsManager().getSuffix(players.get(0));
+            return HardcoreTeamPvP.getInstance().getPermissionsManager().getPrefix(players.get(0)) + players.get(0).getName() + HardcoreTeamPvP.getInstance().getPermissionsManager().getSuffix(players.get(0));
         }
 
         return playerName;
@@ -707,11 +705,11 @@ public class Helper
 
     public static Player getPlayer(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            return SimpleClans.getInstance().getServer().getPlayer(UUIDMigration.getForcedPlayerUUID(playerName));
+            return HardcoreTeamPvP.getInstance().getServer().getPlayer(UUIDMigration.getForcedPlayerUUID(playerName));
         }
 
-        return SimpleClans.getInstance().getServer().getPlayer(playerName);
+        return HardcoreTeamPvP.getInstance().getServer().getPlayer(playerName);
     }
 }

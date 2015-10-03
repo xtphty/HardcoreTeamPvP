@@ -19,7 +19,7 @@ import java.util.*;
 public final class ClanManager
 {
 
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private HashMap<String, Clan> clans = new HashMap<String, Clan>();
     private HashMap<String, ClanPlayer> clanPlayers = new HashMap<String, ClanPlayer>();
 
@@ -28,7 +28,7 @@ public final class ClanManager
      */
     public ClanManager()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     /**
@@ -57,7 +57,7 @@ public final class ClanManager
      */
     public void importClanPlayer(ClanPlayer cp)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             if (cp.getUniqueId() != null)
             {
@@ -80,7 +80,7 @@ public final class ClanManager
     public void createClan(Player player, String colorTag, String name)
     {
         ClanPlayer cp;
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             cp = getCreateClanPlayer(player.getUniqueId());
         }
@@ -99,18 +99,18 @@ public final class ClanManager
         importClan(clan);
         plugin.getStorageManager().updateClanPlayer(cp);
 
-        SimpleClans.getInstance().getPermissionsManager().updateClanPermissions(clan);
+        HardcoreTeamPvP.getInstance().getPermissionsManager().updateClanPermissions(clan);
 
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getUniqueId());
         }
         else
         {
-            SimpleClans.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
+            HardcoreTeamPvP.getInstance().getSpoutPluginManager().processPlayer(cp.getName());
         }
 
-        SimpleClans.getInstance().getServer().getPluginManager().callEvent(new CreateClanEvent(clan));
+        HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new CreateClanEvent(clan));
     }
 
     /**
@@ -232,8 +232,8 @@ public final class ClanManager
      */
     public ClanPlayer getClanPlayerJoinEvent(Player player)
     {
-        SimpleClans.getInstance().getStorageManager().importFromDatabaseOnePlayer(player);
-        if (SimpleClans.getInstance().hasUUID())
+        HardcoreTeamPvP.getInstance().getStorageManager().importFromDatabaseOnePlayer(player);
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return getClanPlayer(player.getUniqueId());
         }
@@ -252,7 +252,7 @@ public final class ClanManager
      */
     public ClanPlayer getClanPlayer(Player player)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return getClanPlayer(player.getUniqueId());
         }
@@ -273,7 +273,7 @@ public final class ClanManager
     public ClanPlayer getClanPlayer(String playerName)
     {
         ClanPlayer cp;
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             cp = getClanPlayerName(playerName);
         }
@@ -300,8 +300,8 @@ public final class ClanManager
      * if he's not in a clan
      *
      * @param playerUniqueId
-     * @return
-     */
+    * @return
+            */
     public ClanPlayer getClanPlayer(UUID playerUniqueId)
     {
         ClanPlayer cp = clanPlayers.get(playerUniqueId.toString());
@@ -362,7 +362,7 @@ public final class ClanManager
     @Deprecated
     public ClanPlayer getAnyClanPlayer(String playerName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return getClanPlayerName(playerName);
         }
@@ -416,7 +416,7 @@ public final class ClanManager
      */
     public ClanPlayer getCreateClanPlayerUUID(String playerDisplayName)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             UUID playerUniqueId = UUIDMigration.getForcedPlayerUUID(playerDisplayName);
             if (playerUniqueId != null)
@@ -469,7 +469,7 @@ public final class ClanManager
             ChatBlock.sendMessage(player, ChatColor.DARK_GRAY + "* " + ChatColor.AQUA + msg);
         }
 
-        SimpleClans.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[" + plugin.getLang("server.announce") + "] " + ChatColor.WHITE + msg);
+        HardcoreTeamPvP.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "[" + plugin.getLang("server.announce") + "] " + ChatColor.WHITE + msg);
     }
 
     /**
@@ -588,7 +588,7 @@ public final class ClanManager
 
         for (Clan tm : clans.values())
         {
-            if (!SimpleClans.getInstance().getSettingsManager().isUnrivable(tm.getTag()))
+            if (!HardcoreTeamPvP.getInstance().getSettingsManager().isUnrivable(tm.getTag()))
             {
                 clanCount++;
             }
@@ -1489,7 +1489,7 @@ public final class ClanManager
         {
             String code = "" + ChatColor.AQUA + ChatColor.WHITE + ChatColor.AQUA + ChatColor.BLACK;
             String message = code + plugin.getSettingsManager().getAllyChatBracketColor() + plugin.getSettingsManager().getAllyChatTagBracketLeft() + plugin.getSettingsManager().getAllyChatTagColor() + plugin.getSettingsManager().getCommandAlly() + plugin.getSettingsManager().getAllyChatBracketColor() + plugin.getSettingsManager().getAllyChatTagBracketRight() + " " + plugin.getSettingsManager().getAllyChatNameColor() + plugin.getSettingsManager().getAllyChatPlayerBracketLeft() + player.getName() + plugin.getSettingsManager().getAllyChatPlayerBracketRight() + " " + plugin.getSettingsManager().getAllyChatMessageColor() + msg;
-            SimpleClans.log(message);
+            HardcoreTeamPvP.log(message);
 
             Player self = cp.toPlayer();
             ChatBlock.sendMessage(self, message);
@@ -1504,7 +1504,7 @@ public final class ClanManager
                     continue;
                 }
                 Player member = ally.toPlayer();
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     if (player.getUniqueId().equals(ally.getUniqueId()))
                     {
@@ -1533,7 +1533,7 @@ public final class ClanManager
     public boolean processGlobalChat(Player player, String msg)
     {
         ClanPlayer cp;
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             cp = plugin.getClanManager().getClanPlayer(player.getUniqueId());
         }

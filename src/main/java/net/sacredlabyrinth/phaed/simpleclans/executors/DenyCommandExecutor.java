@@ -11,11 +11,11 @@ import java.text.MessageFormat;
 
 public class DenyCommandExecutor implements CommandExecutor
 {
-    SimpleClans plugin;
+    HardcoreTeamPvP plugin;
 
     public DenyCommandExecutor()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     @Override
@@ -63,7 +63,7 @@ public class DenyCommandExecutor implements CommandExecutor
         {
             if (plugin.getRequestManager().hasRequest(player.getName().toLowerCase()))
             {
-                if (SimpleClans.getInstance().hasUUID())
+                if (HardcoreTeamPvP.getInstance().hasUUID())
                 {
                     cp = plugin.getClanManager().getCreateClanPlayer(player.getUniqueId());
                 }

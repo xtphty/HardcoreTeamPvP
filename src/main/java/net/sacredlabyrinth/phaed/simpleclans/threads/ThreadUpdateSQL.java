@@ -2,7 +2,7 @@ package net.sacredlabyrinth.phaed.simpleclans.threads;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 
 /**
  *
@@ -32,8 +32,8 @@ public class ThreadUpdateSQL extends Thread {
         {
             if (!ex.toString().contains("not return ResultSet"))
             {
-                SimpleClans.getLog().severe("[Thread] Error at SQL " + this.TypeSQL + " Query: " + ex);
-                SimpleClans.getLog().severe("[Thread] Query: " + this.Query);
+                HardcoreTeamPvP.getLog().severe("[Thread] Error at SQL " + this.TypeSQL + " Query: " + ex);
+                HardcoreTeamPvP.getLog().severe("[Thread] Query: " + this.Query);
             }
         }
     }

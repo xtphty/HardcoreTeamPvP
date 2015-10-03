@@ -13,7 +13,7 @@ import java.text.MessageFormat;
  */
 public final class ClanCommandExecutor implements CommandExecutor
 {
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private CreateCommand createCommand;
     private ListCommand listCommand;
     private ProfileCommand profileCommand;
@@ -61,7 +61,7 @@ public final class ClanCommandExecutor implements CommandExecutor
      */
     public ClanCommandExecutor()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
         menuCommand = new MenuCommand();
         createCommand = new CreateCommand();
         listCommand = new ListCommand();
@@ -332,7 +332,7 @@ public final class ClanCommandExecutor implements CommandExecutor
         }
         catch (Exception ex)
         {
-            SimpleClans.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.RED + MessageFormat.format(plugin.getLang("simpleclans.command.failure"), ex.getMessage()));
+            HardcoreTeamPvP.getInstance().getServer().getConsoleSender().sendMessage(ChatColor.RED + MessageFormat.format(plugin.getLang("simpleclans.command.failure"), ex.getMessage()));
             for (StackTraceElement el : ex.getStackTrace())
             {
                 System.out.print(el.toString());

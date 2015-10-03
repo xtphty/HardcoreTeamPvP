@@ -1,13 +1,12 @@
 package net.sacredlabyrinth.phaed.simpleclans.managers;
 
 
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 @SuppressWarnings("unchecked")
 public class LanguageManager
@@ -23,7 +22,7 @@ public class LanguageManager
 
     public void load()
     {
-        file = new File(SimpleClans.getInstance().getDataFolder() + File.separator + "language.yml");
+        file = new File(HardcoreTeamPvP.getInstance().getDataFolder() + File.separator + "language.yml");
         check();
     }
 

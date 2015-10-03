@@ -4,7 +4,7 @@ import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -29,7 +29,7 @@ public class DemoteCommand
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (plugin.getPermissionsManager().has(player, "simpleclans.leader.demote"))
         {
@@ -52,7 +52,7 @@ public class DemoteCommand
                             return;
                         }
                         
-                        if (SimpleClans.getInstance().hasUUID())
+                        if (HardcoreTeamPvP.getInstance().hasUUID())
                         {
                             UUID PlayerUniqueId = UUIDMigration.getForcedPlayerUUID(demotedName);
                             if (PlayerUniqueId == null)
@@ -68,7 +68,7 @@ public class DemoteCommand
 
                         if (allOtherLeadersOnline)
                         {
-                            if (SimpleClans.getInstance().hasUUID())
+                            if (HardcoreTeamPvP.getInstance().hasUUID())
                             {
                                 UUID PlayerUniqueId = UUIDMigration.getForcedPlayerUUID(demotedName);
                                 if (clan.isLeader(PlayerUniqueId))

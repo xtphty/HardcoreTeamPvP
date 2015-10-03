@@ -79,13 +79,13 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
     public ClanPlayer(UUID playerUniqueId)
     {
         this.uniqueId = playerUniqueId;
-        Player OnlinePlayer = SimpleClans.getInstance().getServer().getPlayer(playerUniqueId);
+        Player OnlinePlayer = HardcoreTeamPvP.getInstance().getServer().getPlayer(playerUniqueId);
         if (OnlinePlayer != null)
         {
             this.displayName = OnlinePlayer.getName();
         } else
         {
-            OfflinePlayer OfflinePlayer = SimpleClans.getInstance().getServer().getOfflinePlayer(playerUniqueId);
+            OfflinePlayer OfflinePlayer = HardcoreTeamPvP.getInstance().getServer().getOfflinePlayer(playerUniqueId);
             this.displayName = OfflinePlayer.getName();
         }
         this.lastSeen = (new Date()).getTime();
@@ -118,7 +118,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
     @Override
     public int compareTo(ClanPlayer other)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return this.getUniqueId().compareTo(other.getUniqueId());
         } else
@@ -216,7 +216,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
      */
     public boolean isAlly(Player player)
     {
-        ClanPlayer allycp = SimpleClans.getInstance().getClanManager().getClanPlayer(player);
+        ClanPlayer allycp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(player);
 
         if (allycp != null)
         {
@@ -234,7 +234,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
      */
     public boolean isRival(Player player)
     {
-        ClanPlayer allycp = SimpleClans.getInstance().getClanManager().getClanPlayer(player);
+        ClanPlayer allycp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayer(player);
 
         if (allycp != null)
         {
@@ -284,15 +284,15 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
 
         if (days < 1)
         {
-            return SimpleClans.getInstance().getLang("today");
+            return HardcoreTeamPvP.getInstance().getLang("today");
         }
         else if (Math.round(days) == 1)
         {
-            return MessageFormat.format(SimpleClans.getInstance().getLang("1.color.day"), ChatColor.GRAY);
+            return MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("1.color.day"), ChatColor.GRAY);
         }
         else
         {
-            return MessageFormat.format(SimpleClans.getInstance().getLang("many.color.days"), Math.round(days), ChatColor.GRAY);
+            return MessageFormat.format(HardcoreTeamPvP.getInstance().getLang("many.color.days"), Math.round(days), ChatColor.GRAY);
         }
     }
 
@@ -465,7 +465,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
      */
     public double getWeightedKills()
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
         return (((double) rivalKills * plugin.getSettingsManager().getKwRival()) + ((double) neutralKills * plugin.getSettingsManager().getKwNeutral()) + ((double) civilianKills * plugin.getSettingsManager().getKwCivilian()));
     }
 
@@ -610,7 +610,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
 
         if (out.trim().isEmpty())
         {
-            return SimpleClans.getInstance().getLang("none");
+            return HardcoreTeamPvP.getInstance().getLang("none");
         }
 
         return out;
@@ -884,7 +884,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
     public void setBbEnabled(boolean bbEnabled)
     {
         this.bbEnabled = bbEnabled;
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(this);
     }
 
     public boolean isCapeEnabled()
@@ -895,7 +895,7 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
     public void setCapeEnabled(boolean capeEnabled)
     {
         this.capeEnabled = capeEnabled;
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(this);
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(this);
     }
 
     public boolean isTagEnabled()
@@ -906,8 +906,8 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
     public void setTagEnabled(boolean tagEnabled)
     {
         this.tagEnabled = tagEnabled;
-        SimpleClans.getInstance().getStorageManager().updateClanPlayer(this);
-        SimpleClans.getInstance().getClanManager().updateDisplayName(this.toPlayer());
+        HardcoreTeamPvP.getInstance().getStorageManager().updateClanPlayer(this);
+        HardcoreTeamPvP.getInstance().getClanManager().updateDisplayName(this.toPlayer());
     }
 
     public boolean isUseChatShortcut()
@@ -936,10 +936,10 @@ public class ClanPlayer implements Serializable, Comparable<ClanPlayer>
     {
         if (this.uniqueId != null)
         {
-            return SimpleClans.getInstance().getServer().getPlayer(this.uniqueId);
+            return HardcoreTeamPvP.getInstance().getServer().getPlayer(this.uniqueId);
         } else
         {
-            return SimpleClans.getInstance().getServer().getPlayer(this.displayName);
+            return HardcoreTeamPvP.getInstance().getServer().getPlayer(this.displayName);
         }
     }
    public void setMuted(boolean b)

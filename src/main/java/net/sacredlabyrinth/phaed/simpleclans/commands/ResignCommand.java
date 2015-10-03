@@ -1,10 +1,7 @@
 package net.sacredlabyrinth.phaed.simpleclans.commands;
 
-import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
-import net.sacredlabyrinth.phaed.simpleclans.Clan;
-import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
-import net.sacredlabyrinth.phaed.simpleclans.Helper;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.*;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -27,7 +24,7 @@ public class ResignCommand
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (plugin.getPermissionsManager().has(player, "simpleclans.member.resign"))
         {
@@ -40,7 +37,7 @@ public class ResignCommand
                 if (!clan.isLeader(player) || clan.getLeaders().size() > 1)
                 {
                     clan.addBb(player.getName(), ChatColor.AQUA + MessageFormat.format(plugin.getLang("0.has.resigned"), Helper.capitalize(player.getName())));
-                    if (SimpleClans.getInstance().hasUUID())
+                    if (HardcoreTeamPvP.getInstance().hasUUID())
                     {
                         clan.removePlayerFromClan(player.getUniqueId());
                     } else 

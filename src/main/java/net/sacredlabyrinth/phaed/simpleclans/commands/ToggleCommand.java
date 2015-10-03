@@ -3,7 +3,7 @@ package net.sacredlabyrinth.phaed.simpleclans.commands;
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
 import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -22,7 +22,7 @@ public class ToggleCommand {
      * @param arg
      */
     public void execute(Player player, String[] arg) {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
 
         if (arg.length == 0) {
             return;

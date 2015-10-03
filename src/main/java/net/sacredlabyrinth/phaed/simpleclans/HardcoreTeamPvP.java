@@ -14,18 +14,16 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * @author Phaed
  */
-public class SimpleClans extends JavaPlugin {
+public class HardcoreTeamPvP extends JavaPlugin {
 
     private ArrayList<String> messages = new ArrayList<String>();
-    private static SimpleClans instance;
+    private static HardcoreTeamPvP instance;
     private static final Logger logger = Logger.getLogger("Minecraft");
     private ClanManager clanManager;
     private RequestManager requestManager;
@@ -57,7 +55,7 @@ public class SimpleClans extends JavaPlugin {
     /**
      * @return the instance
      */
-    public static SimpleClans getInstance()
+    public static HardcoreTeamPvP getInstance()
     {
         return instance;
     }
@@ -111,8 +109,8 @@ public class SimpleClans extends JavaPlugin {
         getCommand(getSettingsManager().getCommandClan()).setTabCompleter(new PlayerNameTabCompleter());
 
         pullMessages();
-        logger.info("[SimpleClans] Modo Multithreading: " + SimpleClans.getInstance().getSettingsManager().getUseThreads());
-        logger.info("[SimpleClans] Modo BungeeCord: " + SimpleClans.getInstance().getSettingsManager().getUseBungeeCord());
+        logger.info("[HardcoreTeamPvP] Modo Multithreading: " + HardcoreTeamPvP.getInstance().getSettingsManager().getUseThreads());
+        logger.info("[HardcoreTeamPvP] Modo BungeeCord: " + HardcoreTeamPvP.getInstance().getSettingsManager().getUseBungeeCord());
     }
 
     @Override

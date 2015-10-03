@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 
 /**
  *
@@ -26,9 +26,9 @@ public class SQLiteCore implements DBCore
      */
     public SQLiteCore(String dbLocation)
     {
-        this.dbName = "SimpleClans";
+        this.dbName = "HardcoreTeamPvP";
         this.dbLocation = dbLocation;
-        this.log = SimpleClans.getLog();
+        this.log = HardcoreTeamPvP.getLog();
 
         initialize();
     }

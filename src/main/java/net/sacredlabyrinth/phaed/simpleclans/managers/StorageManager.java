@@ -23,7 +23,7 @@ import java.util.logging.Level;
 public final class StorageManager
 {
 
-    private SimpleClans plugin;
+    private HardcoreTeamPvP plugin;
     private DBCore core;
     private HashMap<String, ChatBlock> chatBlocks = new HashMap<String, ChatBlock>();
 
@@ -32,7 +32,7 @@ public final class StorageManager
      */
     public StorageManager()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
         initiateDB();
         updateDatabase();
         importFromDatabase();
@@ -46,7 +46,7 @@ public final class StorageManager
      */
     public ChatBlock getChatBlock(Player player)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             return chatBlocks.get(player.getUniqueId().toString());
         }
@@ -64,7 +64,7 @@ public final class StorageManager
      */
     public void addChatBlock(CommandSender player, ChatBlock cb)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             UUID uuid = UUIDMigration.getForcedPlayerUUID(player.getName());
 
@@ -92,11 +92,11 @@ public final class StorageManager
 
             if (core.checkConnection())
             {
-                SimpleClans.log("[SimpleClans] " + plugin.getLang("mysql.connection.successful"));
+                HardcoreTeamPvP.log("[HardcoreTeamPvP] " + plugin.getLang("mysql.connection.successful"));
 
                 if (!core.existsTable("sc_clans"))
                 {
-                    SimpleClans.log("Creating table: sc_clans");
+                    HardcoreTeamPvP.log("Creating table: sc_clans");
 
                     String query = "CREATE TABLE IF NOT EXISTS `sc_clans` ( `id` bigint(20) NOT NULL auto_increment, `verified` tinyint(1) default '0', `tag` varchar(25) NOT NULL, `color_tag` varchar(25) NOT NULL, `name` varchar(100) NOT NULL, `friendly_fire` tinyint(1) default '0', `founded` bigint NOT NULL, `last_used` bigint NOT NULL, `packed_allies` text NOT NULL, `packed_rivals` text NOT NULL, `packed_bb` mediumtext NOT NULL, `cape_url` varchar(255) NOT NULL, `flags` text NOT NULL, `balance` double(64,2), PRIMARY KEY  (`id`), UNIQUE KEY `uq_simpleclans_1` (`tag`));";
                     core.execute(query);
@@ -104,7 +104,7 @@ public final class StorageManager
 
                 if (!core.existsTable("sc_players"))
                 {
-                    SimpleClans.log("Creating table: sc_players");
+                    HardcoreTeamPvP.log("Creating table: sc_players");
 
                     String query = "CREATE TABLE IF NOT EXISTS `sc_players` ( `id` bigint(20) NOT NULL auto_increment, `name` varchar(16) NOT NULL, `leader` tinyint(1) default '0', `tag` varchar(25) NOT NULL, `friendly_fire` tinyint(1) default '0', `neutral_kills` int(11) default NULL, `rival_kills` int(11) default NULL, `civilian_kills` int(11) default NULL, `deaths` int(11) default NULL, `last_seen` bigint NOT NULL, `join_date` bigint NOT NULL, `trusted` tinyint(1) default '0', `flags` text NOT NULL, `packed_past_clans` text, PRIMARY KEY  (`id`), UNIQUE KEY `uq_sc_players_1` (`name`));";
                     core.execute(query);
@@ -112,7 +112,7 @@ public final class StorageManager
 
                 if (!core.existsTable("sc_kills"))
                 {
-                    SimpleClans.log("Creating table: sc_kills");
+                    HardcoreTeamPvP.log("Creating table: sc_kills");
 
                     String query = "CREATE TABLE IF NOT EXISTS `sc_kills` ( `kill_id` bigint(20) NOT NULL auto_increment, `attacker` varchar(16) NOT NULL, `attacker_tag` varchar(16) NOT NULL, `victim` varchar(16) NOT NULL, `victim_tag` varchar(16) NOT NULL, `kill_type` varchar(1) NOT NULL, PRIMARY KEY  (`kill_id`));";
                     core.execute(query);
@@ -120,7 +120,7 @@ public final class StorageManager
             }
             else
             {
-                SimpleClans.getInstance().getServer().getConsoleSender().sendMessage("[SimpleClans] " + ChatColor.RED + plugin.getLang("mysql.connection.failed"));
+                HardcoreTeamPvP.getInstance().getServer().getConsoleSender().sendMessage("[HardcoreTeamPvP] " + ChatColor.RED + plugin.getLang("mysql.connection.failed"));
             }
         }
         else
@@ -129,11 +129,11 @@ public final class StorageManager
 
             if (core.checkConnection())
             {
-                SimpleClans.log("[SimpleClans] " + plugin.getLang("sqlite.connection.successful"));
+                HardcoreTeamPvP.log("[HardcoreTeamPvP] " + plugin.getLang("sqlite.connection.successful"));
 
                 if (!core.existsTable("sc_clans"))
                 {
-                    SimpleClans.log("Creating table: sc_clans");
+                    HardcoreTeamPvP.log("Creating table: sc_clans");
 
                     String query = "CREATE TABLE IF NOT EXISTS `sc_clans` ( `id` bigint(20), `verified` tinyint(1) default '0', `tag` varchar(25) NOT NULL, `color_tag` varchar(25) NOT NULL, `name` varchar(100) NOT NULL, `friendly_fire` tinyint(1) default '0', `founded` bigint NOT NULL, `last_used` bigint NOT NULL, `packed_allies` text NOT NULL, `packed_rivals` text NOT NULL, `packed_bb` mediumtext NOT NULL, `cape_url` varchar(255) NOT NULL, `flags` text NOT NULL, `balance` double(64,2) default 0.0,  PRIMARY KEY  (`id`), UNIQUE (`tag`));";
                     core.execute(query);
@@ -141,7 +141,7 @@ public final class StorageManager
 
                 if (!core.existsTable("sc_players"))
                 {
-                    SimpleClans.log("Creating table: sc_players");
+                    HardcoreTeamPvP.log("Creating table: sc_players");
 
                     String query = "CREATE TABLE IF NOT EXISTS `sc_players` ( `id` bigint(20), `name` varchar(16) NOT NULL, `leader` tinyint(1) default '0', `tag` varchar(25) NOT NULL, `friendly_fire` tinyint(1) default '0', `neutral_kills` int(11) default NULL, `rival_kills` int(11) default NULL, `civilian_kills` int(11) default NULL, `deaths` int(11) default NULL, `last_seen` bigint NOT NULL, `join_date` bigint NOT NULL, `trusted` tinyint(1) default '0', `flags` text NOT NULL, `packed_past_clans` text, PRIMARY KEY  (`id`), UNIQUE (`name`));";
                     core.execute(query);
@@ -149,7 +149,7 @@ public final class StorageManager
 
                 if (!core.existsTable("sc_kills"))
                 {
-                    SimpleClans.log("Creating table: sc_kills");
+                    HardcoreTeamPvP.log("Creating table: sc_kills");
 
                     String query = "CREATE TABLE IF NOT EXISTS `sc_kills` ( `kill_id` bigint(20), `attacker` varchar(16) NOT NULL, `attacker_tag` varchar(16) NOT NULL, `victim` varchar(16) NOT NULL, `victim_tag` varchar(16) NOT NULL, `kill_type` varchar(1) NOT NULL, PRIMARY KEY  (`kill_id`));";
                     core.execute(query);
@@ -157,7 +157,7 @@ public final class StorageManager
             }
             else
             {
-                SimpleClans.getInstance().getServer().getConsoleSender().sendMessage("[SimpleClans] " + ChatColor.RED + plugin.getLang("sqlite.connection.failed"));
+                HardcoreTeamPvP.getInstance().getServer().getConsoleSender().sendMessage("[HardcoreTeamPvP] " + ChatColor.RED + plugin.getLang("sqlite.connection.failed"));
             }
         }
     }
@@ -192,7 +192,7 @@ public final class StorageManager
 
         if (clans.size() > 0)
         {
-            SimpleClans.log(MessageFormat.format("[SimpleClans] " + plugin.getLang("clans"), clans.size()));
+            HardcoreTeamPvP.log(MessageFormat.format("[HardcoreTeamPvP] " + plugin.getLang("clans"), clans.size()));
         }
 
         List<ClanPlayer> cps = retrieveClanPlayers();
@@ -211,7 +211,7 @@ public final class StorageManager
 
         if (cps.size() > 0)
         {
-            SimpleClans.log(MessageFormat.format("[SimpleClans] " + plugin.getLang("clan.players"), cps.size()));
+            HardcoreTeamPvP.log(MessageFormat.format("[HardcoreTeamPvP] " + plugin.getLang("clan.players"), cps.size()));
         }
     }
 
@@ -237,7 +237,7 @@ public final class StorageManager
             }
             plugin.getClanManager().importClanPlayer(cp);
 
-            SimpleClans.log("[SimpleClans] ClanPlayer Reloaded: " + player.getName() + ", UUID: " + player.getUniqueId().toString());
+            HardcoreTeamPvP.log("[HardcoreTeamPvP] ClanPlayer Reloaded: " + player.getName() + ", UUID: " + player.getUniqueId().toString());
         }
     }
 
@@ -265,7 +265,7 @@ public final class StorageManager
 
         for (Clan clan : purge)
         {
-            SimpleClans.log("[SimpleClans] " + MessageFormat.format(plugin.getLang("purging.clan"), clan.getName()));
+            HardcoreTeamPvP.log("[HardcoreTeamPvP] " + MessageFormat.format(plugin.getLang("purging.clan"), clan.getName()));
             deleteClan(clan);
             clans.remove(clan);
         }
@@ -288,7 +288,7 @@ public final class StorageManager
 
         for (ClanPlayer cp : purge)
         {
-            SimpleClans.log("[SimpleClans] " + MessageFormat.format(plugin.getLang("purging.player.data"), cp.getName()));
+            HardcoreTeamPvP.log("[HardcoreTeamPvP] " + MessageFormat.format(plugin.getLang("purging.player.data"), cp.getName()));
             deleteClanPlayer(cp);
             cps.remove(cp);
         }
@@ -366,8 +366,8 @@ public final class StorageManager
             }
             catch (SQLException ex)
             {
-                SimpleClans.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
-                SimpleClans.getLog().log(Level.SEVERE, null, ex);
+                HardcoreTeamPvP.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
+                HardcoreTeamPvP.getLog().log(Level.SEVERE, null, ex);
             }
         }
 
@@ -448,8 +448,8 @@ public final class StorageManager
             }
             catch (SQLException ex)
             {
-                SimpleClans.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
-                SimpleClans.getLog().log(Level.SEVERE, null, ex);
+                HardcoreTeamPvP.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
+                HardcoreTeamPvP.getLog().log(Level.SEVERE, null, ex);
             }
         }
 
@@ -521,7 +521,7 @@ public final class StorageManager
 
                         if (!tag.isEmpty())
                         {
-                            Clan clan = SimpleClans.getInstance().getClanManager().getClan(tag);
+                            Clan clan = HardcoreTeamPvP.getInstance().getClanManager().getClan(tag);
 
                             if (clan != null)
                             {
@@ -542,8 +542,8 @@ public final class StorageManager
             }
             catch (SQLException ex)
             {
-                SimpleClans.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
-                SimpleClans.getLog().log(Level.SEVERE, null, ex);
+                HardcoreTeamPvP.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
+                HardcoreTeamPvP.getLog().log(Level.SEVERE, null, ex);
             }
         }
 
@@ -618,11 +618,11 @@ public final class StorageManager
                         if (!tag.isEmpty())
                         {
                             Clan clanDB = retrieveOneClan(tag);
-                            Clan clan = SimpleClans.getInstance().getClanManager().getClan(tag);
+                            Clan clan = HardcoreTeamPvP.getInstance().getClanManager().getClan(tag);
 
                             if (clan != null)
                             {
-                                Clan clanReSync = SimpleClans.getInstance().getClanManager().getClan(tag);
+                                Clan clanReSync = HardcoreTeamPvP.getInstance().getClanManager().getClan(tag);
                                 clanReSync.setFlags(clanDB.getFlags());
                                 clanReSync.setVerified(clanDB.isVerified());
                                 clanReSync.setFriendlyFire(clanDB.isFriendlyFire());
@@ -642,7 +642,7 @@ public final class StorageManager
                             {
                                 plugin.getClanManager().importClan(clanDB);
                                 clanDB.validateWarring();
-                                Clan newclan = SimpleClans.getInstance().getClanManager().getClan(clanDB.getTag());
+                                Clan newclan = HardcoreTeamPvP.getInstance().getClanManager().getClan(clanDB.getTag());
                                 cp.setClan(newclan);
                             }
                         }
@@ -660,8 +660,8 @@ public final class StorageManager
             }
             catch (SQLException ex)
             {
-                SimpleClans.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
-                SimpleClans.getLog().log(Level.SEVERE, null, ex);
+                HardcoreTeamPvP.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
+                HardcoreTeamPvP.getLog().log(Level.SEVERE, null, ex);
             }
         }
 
@@ -727,7 +727,7 @@ public final class StorageManager
      */
     public void insertClanPlayer(ClanPlayer cp)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             String query = "INSERT INTO `sc_players` ( `uuid`, `name`, `leader`, `tag`, `friendly_fire`, `neutral_kills`, `rival_kills`, `civilian_kills`, `deaths`, `last_seen`, `join_date`, `packed_past_clans`, `flags`) ";
             String values = "VALUES ( '" + cp.getUniqueId().toString() + "', '" + cp.getName() + "'," + (cp.isLeader() ? 1 : 0) + ",'" + Helper.escapeQuotes(cp.getTag()) + "'," + (cp.isFriendlyFire() ? 1 : 0) + "," + cp.getNeutralKills() + "," + cp.getRivalKills() + "," + cp.getCivilianKills() + "," + cp.getDeaths() + ",'" + cp.getLastSeen() + "',' " + cp.getJoinDate() + "','" + Helper.escapeQuotes(cp.getPackedPastClans()) + "','" + Helper.escapeQuotes(cp.getFlags()) + "');";
@@ -766,7 +766,7 @@ public final class StorageManager
     public void updateClanPlayer(ClanPlayer cp)
     {
         cp.updateLastSeen();
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             String query = "UPDATE `sc_players` SET leader = " + (cp.isLeader() ? 1 : 0) + ", tag = '" + Helper.escapeQuotes(cp.getTag()) + "' , friendly_fire = " + (cp.isFriendlyFire() ? 1 : 0) + ", neutral_kills = " + cp.getNeutralKills() + ", rival_kills = " + cp.getRivalKills() + ", civilian_kills = " + cp.getCivilianKills() + ", deaths = " + cp.getDeaths() + ", last_seen = '" + cp.getLastSeen() + "', packed_past_clans = '" + Helper.escapeQuotes(cp.getPackedPastClans()) + "', trusted = " + (cp.isTrusted() ? 1 : 0) + ", flags = '" + Helper.escapeQuotes(cp.getFlags()) + "', name = '" + cp.getName() + "' WHERE `uuid` = '" + cp.getUniqueId().toString() + "';";
             core.update(query);
@@ -785,7 +785,7 @@ public final class StorageManager
      */
     public void deleteClanPlayer(ClanPlayer cp)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             String query = "DELETE FROM `sc_players` WHERE uuid = '" + cp.getUniqueId() + "';";
             core.delete(query);
@@ -810,7 +810,7 @@ public final class StorageManager
      */
     public void insertKill(Player attacker, String attackerTag, Player victim, String victimTag, String type)
     {
-        if (SimpleClans.getInstance().hasUUID())
+        if (HardcoreTeamPvP.getInstance().hasUUID())
         {
             String query = "INSERT INTO `sc_kills` (  `attacker_uuid`, `attacker`, `attacker_tag`, `victim_uuid`, `victim`, `victim_tag`, `kill_type`) ";
             String values = "VALUES ( '" + attacker.getUniqueId() + "','" + attacker.getName() + "','" + attackerTag + "','" + victim.getUniqueId() + "','" + victim.getName() + "','" + victimTag + "','" + type + "');";
@@ -874,7 +874,7 @@ public final class StorageManager
                     }
                     catch (Exception ex)
                     {
-                        SimpleClans.getLog().info(ex.getMessage());
+                        HardcoreTeamPvP.getLog().info(ex.getMessage());
 
 
                     }
@@ -882,8 +882,8 @@ public final class StorageManager
             }
             catch (SQLException ex)
             {
-                SimpleClans.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
-                SimpleClans.getLog().log(Level.SEVERE, null, ex);
+                HardcoreTeamPvP.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
+                HardcoreTeamPvP.getLog().log(Level.SEVERE, null, ex);
             }
         }
 
@@ -917,7 +917,7 @@ public final class StorageManager
                     }
                     catch (Exception ex)
                     {
-                        SimpleClans.getLog().info(ex.getMessage());
+                        HardcoreTeamPvP.getLog().info(ex.getMessage());
 
 
                     }
@@ -925,8 +925,8 @@ public final class StorageManager
             }
             catch (SQLException ex)
             {
-                SimpleClans.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
-                SimpleClans.getLog().log(Level.SEVERE, null, ex);
+                HardcoreTeamPvP.getLog().severe(String.format("An Error occurred: %s", ex.getErrorCode()));
+                HardcoreTeamPvP.getLog().log(Level.SEVERE, null, ex);
             }
         }
 
@@ -998,11 +998,11 @@ public final class StorageManager
      */
     private void updatePlayersToUUID()
     {
-        SimpleClans.log("[SimpleClans] Starting Migration to UUID Players !");
-        SimpleClans.log("[SimpleClans] ==================== ATTENTION DONT STOP BUKKIT ! ==================== ");
-        SimpleClans.log("[SimpleClans] ==================== ATTENTION DONT STOP BUKKIT ! ==================== ");
-        SimpleClans.log("[SimpleClans] ==================== ATTENTION DONT STOP BUKKIT ! ==================== ");
-        SimpleClans.getInstance().setUUID(false);
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] Starting Migration to UUID Players !");
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] ==================== ATTENTION DONT STOP BUKKIT ! ==================== ");
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] ==================== ATTENTION DONT STOP BUKKIT ! ==================== ");
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] ==================== ATTENTION DONT STOP BUKKIT ! ==================== ");
+        HardcoreTeamPvP.getInstance().setUUID(false);
         List<ClanPlayer> cps = retrieveClanPlayers();
 
         int i = 1;
@@ -1011,7 +1011,7 @@ public final class StorageManager
             try
             {
                 UUID uuidPlayer;
-                if (SimpleClans.getInstance().getServer().getOnlineMode())
+                if (HardcoreTeamPvP.getInstance().getServer().getOnlineMode())
                 {
                     uuidPlayer = UUIDFetcher.getUUIDOfThrottled(cp.getName());
                 }
@@ -1027,23 +1027,23 @@ public final class StorageManager
 
                 String query3 = "UPDATE `sc_kills` SET victim_uuid = '" + uuidPlayer.toString() + "' WHERE victim = '" + cp.getName() + "';";
                 core.update(query3);
-                SimpleClans.log("[" + i + " / " + cps.size() + "] Success: " + cp.getName() + "; UUID: " + uuidPlayer.toString());
+                HardcoreTeamPvP.log("[" + i + " / " + cps.size() + "] Success: " + cp.getName() + "; UUID: " + uuidPlayer.toString());
             }
             catch (Exception ex)
             {
-                SimpleClans.log("[" + i + " / " + cps.size() + "] Failed [ERRO]: " + cp.getName() + "; UUID: ???");
+                HardcoreTeamPvP.log("[" + i + " / " + cps.size() + "] Failed [ERRO]: " + cp.getName() + "; UUID: ???");
             }
             i++;
         }
-        SimpleClans.log("[SimpleClans] ==================== END OF MIGRATION ====================");
-        SimpleClans.log("[SimpleClans] ==================== END OF MIGRATION ====================");
-        SimpleClans.log("[SimpleClans] ==================== END OF MIGRATION ====================");
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] ==================== END OF MIGRATION ====================");
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] ==================== END OF MIGRATION ====================");
+        HardcoreTeamPvP.log("[HardcoreTeamPvP] ==================== END OF MIGRATION ====================");
 
 
         if (cps.size() > 0)
         {
-            SimpleClans.log(MessageFormat.format("[SimpleClans] " + plugin.getLang("clan.players"), cps.size()));
+            HardcoreTeamPvP.log(MessageFormat.format("[HardcoreTeamPvP] " + plugin.getLang("clan.players"), cps.size()));
         }
-        SimpleClans.getInstance().setUUID(true);
+        HardcoreTeamPvP.getInstance().setUUID(true);
     }
 }

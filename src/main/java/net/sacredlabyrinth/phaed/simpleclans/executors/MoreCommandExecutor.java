@@ -1,7 +1,7 @@
 package net.sacredlabyrinth.phaed.simpleclans.executors;
 
 import net.sacredlabyrinth.phaed.simpleclans.ChatBlock;
-import net.sacredlabyrinth.phaed.simpleclans.SimpleClans;
+import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,11 +12,11 @@ import java.text.MessageFormat;
 
 public class MoreCommandExecutor implements CommandExecutor
 {
-    SimpleClans plugin;
+    HardcoreTeamPvP plugin;
 
     public MoreCommandExecutor()
     {
-        plugin = SimpleClans.getInstance();
+        plugin = HardcoreTeamPvP.getInstance();
     }
 
     @Override

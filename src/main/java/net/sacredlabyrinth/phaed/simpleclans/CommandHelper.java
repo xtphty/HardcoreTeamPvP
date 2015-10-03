@@ -16,12 +16,12 @@ public class CommandHelper
     {
         if (aliases != null)
         {
-            PluginCommand command = getCommand(aliases[0], SimpleClans.getInstance());
+            PluginCommand command = getCommand(aliases[0], HardcoreTeamPvP.getInstance());
 
             if (command != null)
             {
                 command.setAliases(Arrays.asList(aliases));
-                getCommandMap().register(SimpleClans.getInstance().getDescription().getName(), command);
+                getCommandMap().register(HardcoreTeamPvP.getInstance().getDescription().getName(), command);
             }
         }
     }

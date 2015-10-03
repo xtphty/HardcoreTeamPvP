@@ -27,7 +27,7 @@ public class HomeCommand {
      */
     public void execute(Player player, String[] arg)
     {
-        SimpleClans plugin = SimpleClans.getInstance();
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
         if (arg.length == 2 && arg[0].equalsIgnoreCase("set") && plugin.getPermissionsManager().has(player, "simpleclans.mod.home"))
         {
             if (!plugin.getClanManager().purchaseHomeTeleportSet(player))
@@ -119,7 +119,7 @@ public class HomeCommand {
                     return;
                 }
                 PlayerHomeSetEvent homeSetEvent = new PlayerHomeSetEvent(clan, cp, player.getLocation());
-                SimpleClans.getInstance().getServer().getPluginManager().callEvent(homeSetEvent);
+                HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(homeSetEvent);
                 if (homeSetEvent.isCancelled())
                 {
                     return;
@@ -149,7 +149,7 @@ public class HomeCommand {
             }
             else if (ttag.equalsIgnoreCase("regroup"))
             {
-                if (SimpleClans.getInstance().getSettingsManager().getAllowReGroupCommand())
+                if (HardcoreTeamPvP.getInstance().getSettingsManager().getAllowReGroupCommand())
                 {
                     Location loc = player.getLocation();
                     if (!cp.isLeader())
