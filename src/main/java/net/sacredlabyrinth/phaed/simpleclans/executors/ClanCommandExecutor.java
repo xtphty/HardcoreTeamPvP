@@ -26,6 +26,7 @@ public final class ClanCommandExecutor implements CommandExecutor
     {
         plugin = HardcoreTeamPvP.getInstance();
         menuCommand = new MenuCommand();
+        commands.put(plugin.getLang("restrict.command").toLowerCase(), new RestrictToClansCommand());
         commands.put(plugin.getLang("create.command").toLowerCase(), new CreateCommand());
         commands.put(plugin.getLang("list.command").toLowerCase(), new ListCommand());
         commands.put(plugin.getLang("bank.command").toLowerCase(), new BankCommand());

@@ -34,6 +34,7 @@ public class HardcoreTeamPvP extends JavaPlugin {
     private TeleportManager teleportManager;
     private LanguageManager languageManager;
     private boolean hasUUID;
+    private boolean restrictedToClans;
 
     /**
      * @return the logger
@@ -230,5 +231,14 @@ public class HardcoreTeamPvP extends JavaPlugin {
     public LanguageManager getLanguageManager()
     {
         return languageManager;
+    }
+
+
+    public boolean isRestrictedToClans() {
+        return restrictedToClans;
+    }
+
+    public void setRestrictedToClans(boolean restrictedToClans) {
+        this.restrictedToClans = restrictedToClans;
     }
 }
