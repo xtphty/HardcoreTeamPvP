@@ -34,14 +34,14 @@ public class HardcoreTeamPvP extends JavaPlugin {
     private TeleportManager teleportManager;
     private LanguageManager languageManager;
     private boolean hasUUID;
-    private boolean restrictedToClans;
-
     /**
      * @return the logger
      */
     public static Logger getLog() {
         return logger;
     }
+
+    private boolean restrictedToClans = false;
 
     /**
      * @param msg
