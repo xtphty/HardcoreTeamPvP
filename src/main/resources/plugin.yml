@@ -1,4 +1,4 @@
-name: SimpleClans
+name: HardcoreTeamPvP
 main: net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP
 version: ${project.version}
 softdepend: [Spout, VanishNoPacket, Permissions, PermissionsBukkit, Vault, PermissionsEx, mChat, mChatSuite]

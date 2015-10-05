@@ -75,6 +75,8 @@ public class HardcoreTeamPvP extends JavaPlugin {
     {
         instance = this;
         this.hasUUID = UUIDMigration.canReturnUUID();
+        this.saveResource("language.yml", false);
+
         languageManager = new LanguageManager();
         settingsManager = new SettingsManager();
 
