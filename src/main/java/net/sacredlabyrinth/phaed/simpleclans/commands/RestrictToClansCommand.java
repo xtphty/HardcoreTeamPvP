@@ -48,10 +48,16 @@ public class RestrictToClansCommand {
                 restrictionState = false;
                 ChatBlock.sendMessage(sender, ChatColor.GREEN + plugin.getLang("message.restrict.disable"));
             } else {
+                ChatBlock.sendMessage(sender, ChatColor.RED + plugin.getLang("usage.restrict"));
                 return;
             }
 
             plugin.setRestrictedToClans(restrictionState);
+
+            if (!plugin.isRestrictedToClans()){
+                // Restriction disabled, dont kick
+                return;
+            }
 
             // Kick all online players that are not on a clan, except OPs
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

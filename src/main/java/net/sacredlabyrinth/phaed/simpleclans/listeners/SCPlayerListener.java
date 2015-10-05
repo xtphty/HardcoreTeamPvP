@@ -54,7 +54,7 @@ public class SCPlayerListener implements Listener {
             } else {
                 LOGGER.info("Clan restriction is active, kicking solo player: "
                         + player.getDisplayName());
-                player.kickPlayer(plugin.getLang("message.restrict.disallow"));
+                event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, plugin.getLang("message.restrict.disallow"));
             }
         }
     }
