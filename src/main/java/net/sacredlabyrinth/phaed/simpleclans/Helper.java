@@ -418,12 +418,12 @@ public class Helper
 
         if (one.equals("\u00a7"))
         {
-            return one + two;
+            //return one + two;
         }
 
         if (one.equals("&"))
         {
-            return Helper.toColor(two);
+            //return Helper.toColor(two);
         }
 
 

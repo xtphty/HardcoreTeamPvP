@@ -28,6 +28,7 @@ public class RestrictToClansCommand {
      * @param arg command arguments
      */
     public void execute(CommandSender sender, String[] arg) {
+    	System.out.println("KICK");
         Player playerSender = null;
         if (sender instanceof Player){
             playerSender = (Player) sender;
