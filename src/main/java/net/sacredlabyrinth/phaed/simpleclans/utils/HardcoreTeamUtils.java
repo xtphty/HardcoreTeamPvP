@@ -14,6 +14,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.HumanEntity;
 
+/**
+ * @author Ageudum & firestar
+ */
+
 public class HardcoreTeamUtils {
 	public static Team staticColor;
 	public static void teamColor(Player p){
@@ -24,6 +28,7 @@ public class HardcoreTeamUtils {
         Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
         Team playerTeam = board.getPlayerTeam(p);
 		Clan playerClan = plugin.getClanManager().getClanPlayer(p).getClan();
+	
 		if((playerClan!=null && playerTeam==null) || (playerClan.getName() != playerTeam.getName())){
 			try {	            
 	            if(board.getTeam(playerClan.getTag()) == null){
