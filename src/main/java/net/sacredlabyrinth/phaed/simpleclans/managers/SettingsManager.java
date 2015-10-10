@@ -138,6 +138,8 @@ public final class SettingsManager
     private boolean useBungeeCord;
     private boolean forceCommandPriority;
     private int maxAsksPerRequest;
+    private int clanKillInterval;
+    private int clanKillIntervalCountdown;
 
     /**
      *
@@ -293,7 +295,9 @@ public final class SettingsManager
         allowReGroupCommand = getConfig().getBoolean("settings.allow-regroup-command");
         useThreads = getConfig().getBoolean("performance.use-threads");
         useBungeeCord = getConfig().getBoolean("performance.use-bungeecord");
-
+        clanKillInterval = getConfig().getInt("clan.killinterval");
+        clanKillIntervalCountdown = getConfig().getInt("clan.killintervalcountdown");
+        
         save();
     }
 
@@ -1400,5 +1404,13 @@ public final class SettingsManager
     public void setForceCommandPriority(boolean forceCommandPriority)
     {
         this.forceCommandPriority = forceCommandPriority;
+    }
+    
+    public int getClanKillInterval(){
+    	return clanKillInterval;
+    }
+    
+    public int getClanKillIntervalCountdown(){
+    	return clanKillIntervalCountdown;
     }
 }

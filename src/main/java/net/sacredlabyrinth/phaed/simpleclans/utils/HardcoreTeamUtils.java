@@ -9,6 +9,8 @@ import net.sacredlabyrinth.phaed.simpleclans.Clan;
 import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 
 import java.lang.reflect.Field;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -49,4 +51,10 @@ public class HardcoreTeamUtils {
 		}
 		 p.setScoreboard(board);
     }
+	
+	public static void disbandTeam(String team){
+		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+		Team toDisband = board.getTeam(team);
+		toDisband.unregister();
+	}
 }

@@ -34,6 +34,7 @@ public class Clan implements Serializable, Comparable<Clan>
     private double balance;
     private boolean friendlyFire;
     private long founded;
+    private List<String> kills = new ArrayList<String>();
     private long lastUsed;
     private String capeUrl;
     private List<String> allies = new ArrayList<String>();
@@ -77,7 +78,15 @@ public class Clan implements Serializable, Comparable<Clan>
             friendlyFire = true;
         }
     }
-
+    
+    public void addKill(String victimName){
+       	kills.add(victimName);
+    }
+    
+    public int getKillCount(){
+       	return kills.size();
+    }
+    
     @Override
     public int hashCode()
     {
