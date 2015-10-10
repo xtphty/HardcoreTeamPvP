@@ -1,6 +1,8 @@
 package net.sacredlabyrinth.phaed.simpleclans;
 
+import net.sacredlabyrinth.phaed.simpleclans.*;
 import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -17,7 +19,7 @@ import java.util.*;
  */
 public class Helper
 {
-
+	public static HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
     /**
      * Dumps stacktrace to log
      */
@@ -711,5 +713,23 @@ public class Helper
         }
 
         return HardcoreTeamPvP.getInstance().getServer().getPlayer(playerName);
+    }
+    
+    public static String selectColor(String tag)
+    {
+    	ArrayList<String> colorPool = new ArrayList<String>(Arrays.asList(new String[] {"&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a", "&b", "&c", "&d", "&e"}));
+    	List<Clan> clans = plugin.getClanManager().getClans();
+    	for(int i = 0; i < colorPool.size(); i++){
+    		if(tag.startsWith(colorPool.get(i))){
+    			tag = tag.substring(2);
+    		}
+    		for(int k = 0; k < clans.size(); k++){
+    			if(clans.get(k).getColorTag().contains(colorPool.get(i))){
+    				colorPool.remove(i);
+    			}
+    		}
+    	}
+    	Random randomGenerator = new Random();
+    	return colorPool.get(randomGenerator.nextInt(colorPool.size())) + tag;
     }
 }

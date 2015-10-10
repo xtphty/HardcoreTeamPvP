@@ -2,11 +2,15 @@ package net.sacredlabyrinth.phaed.simpleclans;
 
 import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
 import net.sacredlabyrinth.phaed.simpleclans.events.*;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -30,6 +34,7 @@ public class Clan implements Serializable, Comparable<Clan>
     private double balance;
     private boolean friendlyFire;
     private long founded;
+    private List<String> kills = new ArrayList<String>();
     private long lastUsed;
     private String capeUrl;
     private List<String> allies = new ArrayList<String>();
@@ -61,7 +66,7 @@ public class Clan implements Serializable, Comparable<Clan>
     public Clan(String tag, String name, boolean verified)
     {
         this.tag = Helper.cleanTag(tag);
-        this.colorTag = Helper.parseColors(tag);
+        this.colorTag = Helper.parseColors(Helper.selectColor(tag));
         this.name = name;
         this.founded = (new Date()).getTime();
         this.lastUsed = (new Date()).getTime();
@@ -73,7 +78,15 @@ public class Clan implements Serializable, Comparable<Clan>
             friendlyFire = true;
         }
     }
-
+    
+    public void addKill(String victimName){
+       	kills.add(victimName);
+    }
+    
+    public int getKillCount(){
+       	return kills.size();
+    }
+    
     @Override
     public int hashCode()
     {
@@ -1830,13 +1843,16 @@ public class Clan implements Serializable, Comparable<Clan>
         HardcoreTeamPvP.getInstance().getServer().getPluginManager().callEvent(new DisbandClanEvent(this));
         Collection<ClanPlayer> clanPlayers = HardcoreTeamPvP.getInstance().getClanManager().getAllClanPlayers();
         List<Clan> clans = HardcoreTeamPvP.getInstance().getClanManager().getClans();
-
+        HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
+        Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
         for (ClanPlayer cp : clanPlayers)
         {
             if (cp.getTag().equals(getTag()))
             {
                 HardcoreTeamPvP.getInstance().getPermissionsManager().removeClanPermissions(this);
                 cp.setClan(null);
+                Team playerTeam = board.getPlayerTeam(cp.toPlayer());
+                playerTeam.removePlayer(cp.toPlayer());
 
                 if (isVerified())
                 {

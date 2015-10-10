@@ -5,6 +5,7 @@ import net.sacredlabyrinth.phaed.simpleclans.ClanPlayer;
 import net.sacredlabyrinth.phaed.simpleclans.HardcoreTeamPvP;
 import net.sacredlabyrinth.phaed.simpleclans.Helper;
 import net.sacredlabyrinth.phaed.simpleclans.executors.*;
+import net.sacredlabyrinth.phaed.simpleclans.utils.HardcoreTeamUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -225,7 +226,8 @@ public class SCPlayerListener implements Listener {
             if (plugin.getSettingsManager().isChatTags()) {
                 if (cp != null && cp.isTagEnabled()) {
                     String tagLabel = cp.getClan().getTagLabel(cp.isLeader());
-
+                    tagLabel += "\u00A7f";
+                    
                     Player player = event.getPlayer();
 
                     if (player.getDisplayName().contains("{clan}")) {
@@ -256,7 +258,9 @@ public class SCPlayerListener implements Listener {
         if (HardcoreTeamPvP.getInstance().getSettingsManager().isBlacklistedWorld(player.getLocation().getWorld().getName())) {
             return;
         }
-
+        
+        HardcoreTeamUtils.teamColor(player);
+        
         ClanPlayer cp;
         if (HardcoreTeamPvP.getInstance().getSettingsManager().getUseBungeeCord()) {
             cp = HardcoreTeamPvP.getInstance().getClanManager().getClanPlayerJoinEvent(player);
