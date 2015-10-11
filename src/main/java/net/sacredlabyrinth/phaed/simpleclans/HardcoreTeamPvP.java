@@ -4,7 +4,7 @@ import net.sacredlabyrinth.phaed.simpleclans.executors.*;
 import net.sacredlabyrinth.phaed.simpleclans.listeners.SCEntityListener;
 import net.sacredlabyrinth.phaed.simpleclans.listeners.SCPlayerListener;
 import net.sacredlabyrinth.phaed.simpleclans.managers.*;
-import net.sacredlabyrinth.phaed.simpleclans.threads.KickOldPlayersCountdown;
+import net.sacredlabyrinth.phaed.simpleclans.threads.AsyncClanEliminationTask;
 import net.sacredlabyrinth.phaed.simpleclans.utils.HardcoreTeamTasks;
 import net.sacredlabyrinth.phaed.simpleclans.utils.HardcoreTeamUtils;
 import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
@@ -12,9 +12,7 @@ import net.sacredlabyrinth.phaed.simpleclans.uuid.UUIDMigration;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -127,7 +125,7 @@ public class HardcoreTeamPvP extends JavaPlugin {
         HardcoreTeamTasks.startTasks(this);
         
         (new Thread(
-        		new KickOldPlayersCountdown(
+        		new AsyncClanEliminationTask(
         				getSettingsManager().getClanKillInterval(),
         				getSettingsManager().getClanKillIntervalCountdown()
         				)
