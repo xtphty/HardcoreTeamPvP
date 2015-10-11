@@ -48,7 +48,12 @@ public class KickOldPlayersCountdown implements Runnable{
 		int lowest=-1;
 		Clan lowestClan = null;
 		for(Clan c: plugin.getClanManager().getClans()){
-			if(lowest==-1 || lowest>c.getKillCount()){
+			if(lowest==-1 || lowest>=c.getKillCount()){
+				if(lowest == c.getKillCount()){
+					if(lowestClan.getTotalDeaths() <= c.getTotalDeaths()){
+						lowestClan = c;
+					}
+				}
 				lowest = c.getKillCount();
 				lowestClan=c;
 			}
