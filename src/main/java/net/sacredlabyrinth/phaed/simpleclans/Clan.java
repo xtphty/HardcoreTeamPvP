@@ -84,7 +84,13 @@ public class Clan implements Serializable, Comparable<Clan>
     }
     
     public int getKillCount(){
-       	return kills.size();
+    	int totalKills = 0;
+    	List<ClanPlayer> members = this.getAllMembers();
+    	for(int i = 0; i < members.size(); i++){
+    		totalKills += members.get(i).getNeutralKills() + members.get(i).getRivalKills() + members.get(i).getCivilianKills();
+    	}
+    	return totalKills;
+       	//return kills.size();
     }
     
     @Override

@@ -1,3 +1,4 @@
 /target/
 /.idea/
 *.iml
+src/main/java/net/sacredlabyrinth/phaed/simpleclans/executors/ClanCommandExecutor.java

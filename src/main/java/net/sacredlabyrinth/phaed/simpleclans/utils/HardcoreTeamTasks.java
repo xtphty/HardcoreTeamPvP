@@ -31,9 +31,12 @@ public class HardcoreTeamTasks {
             		try{
                 		HardcoreTeamPvP plugin = HardcoreTeamPvP.getInstance();
                 		List<ClanPlayer> clanPlayers = toKick.getMembers();
-                		for(int i = 0; i < clanPlayers.size(); i++){
-                			clanPlayers.get(i).toPlayer().kickPlayer("Your clan had the fewest number of kills and was disbanded. Better luck next time!");
-    					}
+                		try{
+                			for(int i = 0; i < clanPlayers.size(); i++){
+                				clanPlayers.get(i).toPlayer().kickPlayer("Your clan had the fewest number of kills and was disbanded. Better luck next time!");
+                			}
+                		}
+                		catch(NullPointerException e){};
                 		toKick.disband();
                 		HardcoreTeamUtils.disbandTeam(toKick.getTag());
                 		disbandClan=null;
